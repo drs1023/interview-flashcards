@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秋招英语面试练习 · Flashcards · 中英对照</title>
+<style>
+  :root {
+    --bg: #f5f3ff; --card: #ffffff; --accent: #7c3aed; --accent-dark: #5b21b6;
+    --accent-light: #ede9fe; --text: #1f2937; --text-light: #6b7280; --text-faint: #9ca3af;
+    --border: #e5e7eb; --star-s: #dc2626; --star-t: #ea580c; --star-a: #059669;
+    --star-r: #2563eb; --star-refl: #7c3aed; --tag-bg: #f3f4f6;
+    --cn-bg: #f8fafc; --cn-border: #e2e8f0; --cn-text: #475569;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); line-height:1.75; min-height:100vh; }
+  .app { display:flex; min-height:100vh; }
+  .sidebar { width:260px; flex-shrink:0; background:#fff; border-right:1px solid var(--border); padding:20px 0; overflow-y:auto; position:sticky; top:0; height:100vh; }
+  .sidebar-header { padding:0 20px 16px; border-bottom:1px solid var(--border); margin-bottom:12px; }
+  .sidebar-header h1 { font-size:16px; font-weight:700; color:var(--accent-dark); }
+  .sidebar-header p { font-size:12px; color:var(--text-light); margin-top:4px; }
+  .module-nav { list-style:none; padding:0; }
+  .module-nav li { padding:10px 20px; cursor:pointer; font-size:13px; color:var(--text-light); border-left:3px solid transparent; transition:all .15s; display:flex; justify-content:space-between; align-items:center; }
+  .module-nav li:hover { background:var(--accent-light); color:var(--accent); }
+  .module-nav li.active { background:var(--accent-light); color:var(--accent); border-left-color:var(--accent); font-weight:600; }
+  .module-nav li .count { font-size:11px; background:var(--tag-bg); padding:1px 7px; border-radius:10px; }
+  .module-nav li.active .count { background:var(--accent); color:#fff; }
+  .main { flex:1; padding:32px; max-width:920px; margin:0 auto; width:100%; }
+  .toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+  .toolbar-left { display:flex; align-items:center; gap:12px; }
+  .progress-text { font-size:13px; color:var(--text-light); }
+  .progress-bar { width:120px; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+  .progress-fill { height:100%; background:var(--accent); transition:width .3s; border-radius:3px; }
+  .toolbar-right { display:flex; gap:8px; }
+  .btn { padding:6px 14px; border:none; border-radius:8px; font-size:13px; cursor:pointer; font-weight:500; transition:all .15s; }
+  .btn-shuffle { background:#fff; color:var(--accent); border:1px solid var(--accent); }
+  .btn-shuffle:hover { background:var(--accent-light); }
+  .btn-shuffle.active { background:var(--accent); color:#fff; }
+  .card-container { perspective:1500px; margin-bottom:24px; }
+  .card { background:var(--card); border-radius:20px; box-shadow:0 4px 24px rgba(124,58,237,.1); min-height:420px; position:relative; transform-style:preserve-3d; transition:transform .6s cubic-bezier(.4,0,.2,1); cursor:pointer; }
+  .card.flipped { transform:rotateY(180deg); }
+  .card-face { position:absolute; top:0; left:0; width:100%; height:100%; backface-visibility:hidden; border-radius:20px; padding:32px; display:flex; flex-direction:column; }
+  .card-back { transform:rotateY(180deg); overflow-y:auto; }
+  .card-front .card-meta { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+  .badge { font-size:11px; padding:3px 10px; border-radius:6px; font-weight:600; }
+  .badge-module { background:var(--accent-light); color:var(--accent); }
+  .badge-star { background:#fef3c7; color:#92400e; }
+  .badge-priority { background:#fee2e2; color:#dc2626; }
+  .badge-ai { background:#dbeafe; color:#2563eb; }
+  .card-front .question-en { font-size:21px; font-weight:700; margin-bottom:6px; line-height:1.5; }
+  .card-front .question-cn { font-size:14px; color:var(--text-light); margin-bottom:20px; }
+  .card-front .story-hint { background:#fffbeb; border-left:3px solid #f59e0b; padding:12px 16px; border-radius:0 8px 8px 0; font-size:13px; color:#92400e; margin-top:auto; }
+  .card-front .story-hint .label { font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.5px; display:block; margin-bottom:4px; }
+  .card-front .flip-hint { text-align:center; margin-top:14px; font-size:12px; color:var(--text-faint); }
+  .card-back .answer-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid var(--accent-light); }
+  .card-back .answer-title { font-size:14px; font-weight:600; color:var(--accent); }
+  .card-back .answer-body { font-size:13.5px; line-height:1.8; }
+  .card-back .answer-body p { margin-bottom:10px; }
+  .star-section { padding:6px 0; margin-bottom:6px; }
+  .star-label { font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.5px; display:inline-block; padding:2px 8px; border-radius:4px; margin-right:6px; }
+  .star-s .star-label { background:#fee2e2; color:var(--star-s); }
+  .star-t .star-label { background:#ffedd5; color:var(--star-t); }
+  .star-a .star-label { background:#d1fae5; color:var(--star-a); }
+  .star-r .star-label { background:#dbeafe; color:var(--star-r); }
+  .star-refl .star-label { background:var(--accent-light); color:var(--star-refl); }
+  .cn-translation { background:var(--cn-bg); border:1px solid var(--cn-border); border-radius:10px; padding:14px 16px; margin-top:14px; font-size:13px; line-height:1.8; color:var(--cn-text); }
+  .cn-translation .cn-label { font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.5px; display:block; margin-bottom:8px; }
+  .cn-translation .star-section { padding:4px 0; }
+  .source-tag { font-size:11px; color:var(--text-faint); margin-top:14px; padding-top:10px; border-top:1px dashed var(--border); }
+  .card-back .flip-hint { text-align:center; margin-top:12px; font-size:12px; color:var(--text-faint); }
+  .nav-buttons { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+  .nav-btn { padding:10px 24px; border:1px solid var(--border); background:#fff; border-radius:10px; font-size:14px; cursor:pointer; font-weight:500; color:var(--text); transition:all .15s; }
+  .nav-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-light); }
+  .nav-btn:disabled { opacity:.4; cursor:not-allowed; }
+  .nav-btn:disabled:hover { border-color:var(--border); color:var(--text); background:#fff; }
+  .keyboard-hint { text-align:center; font-size:12px; color:var(--text-faint); margin-top:8px; }
+  .keyboard-hint kbd { background:#fff; border:1px solid var(--border); border-radius:4px; padding:1px 6px; font-size:11px; margin:0 2px; }
+  @media (max-width:768px) {
+    .app { flex-direction:column; }
+    .sidebar { width:100%; height:auto; position:relative; border-right:none; border-bottom:1px solid var(--border); padding:12px 0; }
+    .module-nav { display:flex; overflow-x:auto; padding:0 12px; }
+    .module-nav li { white-space:nowrap; border-left:none; border-bottom:3px solid transparent; padding:8px 12px; }
+    .module-nav li.active { border-left:none; border-bottom-color:var(--accent); }
+    .main { padding:20px 16px; }
+    .card-face { padding:24px 20px; }
+    .card-front .question-en { font-size:18px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>🎯 秋招英语面试练习</h1>
+      <p>杜晓月专属 · 中英对照 · STAR 法则</p>
+    </div>
+    <ul class="module-nav" id="moduleNav">
+      <li class="active" data-module="all">全部题目 <span class="count" id="countAll">0</span></li>
+      <li data-module="1">1. 自我介绍 <span class="count" id="count1">0</span></li>
+      <li data-module="2">2. 行为面试 STAR <span class="count" id="count2">0</span></li>
+      <li data-module="3">3. HR 专业场景 <span class="count" id="count3">0</span></li>
+      <li data-module="4">4. 大厂文化价值观 <span class="count" id="count4">0</span></li>
+      <li data-module="5">5. 情景模拟 <span class="count" id="count5">0</span></li>
+      <li data-module="6">6. 收尾与反问 <span class="count" id="count6">0</span></li>
+    </ul>
+  </aside>
+  <div class="main">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <span class="progress-text" id="progressText">1 / 0</span>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn btn-shuffle" id="shuffleBtn" onclick="toggleShuffle()">🔀 随机抽题</button>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card" id="card" onclick="flipCard()">
+        <div class="card-face card-front" id="cardFront"></div>
+        <div class="card-face card-back" id="cardBack"></div>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-btn" id="prevBtn" onclick="prevCard()">← 上一题</button>
+      <button class="nav-btn" id="nextBtn" onclick="nextCard()">下一题 →</button>
+    </div>
+    <div class="keyboard-hint"><kbd>←</kbd> 上一题 · <kbd>→</kbd> 下一题 · <kbd>Space</kbd> 翻卡</div>
+  </div>
+</div>
+<script>
+const QUESTIONS = [
+  // ===== M1: Self-Introduction =====
+  {
+    module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"high",
+    q:"Tell me about yourself.",
+    cn:"请做自我介绍。",
+    hint:"Present-Past-Future 结构，90秒。强调四段经历的递进逻辑 + AI×HR 差异化 + 数据能力（大数据双学位）。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>I'm Xiaoyue Du, currently pursuing my master's in Business Administration at Northeastern University, with a bachelor's degree in Business Administration and Big Data — so I bring both HR domain knowledge and quantitative skills to the table.</p>
+      <p>Right now, I'm interning as an AI × HR specialist at Tencent CSIG, focusing on OD and workforce planning. My projects include building an intern development management platform — about 4,000 lines of code integrating Tencent Docs API and WeCom bots — developing a competitive intelligence platform that scraped 1,394 job postings from 5 competitor companies, and designing the automation plan for a talent evaluation workbench where I identified 6 data gaps in the existing workflow.</p>
+      <p>Before this, I did recruitment at ByteDance's Feishu team, focusing on AI developer roles. I handled the full-cycle recruitment for large model development, data security, and backend positions — processing 100+ resumes daily with a 90% self-sourced rate and 15% interview conversion rate.</p>
+      <p>I also spent a year as a teaching volunteer in Altay, Xinjiang, where I led a 26-member teaching team as team captain, covering 527 students across 4 grades. That experience taught me adaptability and leadership in resource-constrained environments.</p>
+      <p>I started my HR journey as an HRBP intern at BGI Genomics, where I closed 15+ positions with an 87% completion rate and led campus recruitment compensation negotiations.</p>
+      <p>Looking forward, I'm passionate about the intersection of AI and HR — I believe the next generation of HR leaders need to be as comfortable with code and data as they are with people.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>我是杜晓月，目前在东北大学攻读工商管理硕士学位，本科是工商管理+大数据双学位——所以我同时具备 HR 领域知识和量化分析能力。</p>
+      <p>现在在腾讯 CSIG 做 AI×HR 专项实习生，方向是 OD 和人力规划。我的项目包括：独立开发实习生培养管理平台（约4000行代码，接入了腾讯文档 Open API 和企微机器人）、开发竞对情报管理平台（抓取了5家竞对公司1394条在招岗位）、设计人才评估工作台自动化方案（识别出6处数据断层）。</p>
+      <p>之前在字节跳动飞书团队做招聘实习，负责大模型开发、数据安全、通用后端等研发岗位的全流程招聘，日均处理简历100+份，自主寻访占比90%，约面转化率15%。</p>
+      <p>我还去新疆阿勒泰支教了一年，作为第26届研究生支教团团长，带领团队覆盖4个年级527名学生，周均课时20节。这段经历教会了我在资源受限环境下的适应力和领导力。</p>
+      <p>我的 HR 之旅始于华大基因 HRBP 实习，期间完成15+关键岗位入职，招聘完成率87%，并主导了校招薪酬谈判。</p>
+      <p>未来，我对 AI×HR 的交叉领域充满热情——我相信下一代 HR 领导者需要像懂人一样懂代码和数据。</p>
+    </div>
+    <div class="source-tag">信息源：Simplilearn HR 面试指南 · Present-Past-Future 结构 · 简历数据</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"high",
+    q:"Walk me through your resume.",
+    cn:"请过一遍你的简历。",
+    hint:"按时间线讲，每段经历提炼一个关键词。不要流水账。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>Sure. Four chapters:</p>
+      <p><b>Chapter 1 — Foundation:</b> At Northeastern University, I studied Business Administration with a Big Data minor — GPA 3.74, top 15%. I was deeply involved in student leadership, serving as executive president of both the graduate and undergraduate student councils. During my year teaching in Altay as a China Western Program volunteer, I led a 26-person teaching team, covered 527 students, and won a national bronze award for volunteer service.</p>
+      <p><b>Chapter 2 — HRBP grounding:</b> At BGI Genomics, I did full-spectrum HRBP work — closed 15+ positions at 87% completion rate, led campus recruitment compensation negotiations, and built data dashboards on HR metrics like turnover and cost rates.</p>
+      <p><b>Chapter 3 — Recruitment at scale:</b> At ByteDance's Feishu team, I handled AI developer recruitment — 100+ resumes/day, 90% self-sourced, 15% interview conversion. I also created recruitment enablement docs that improved new hire ramp-up by 40%.</p>
+      <p><b>Chapter 4 — Strategic HR + AI:</b> Now at Tencent CSIG, I've moved into OD and workforce planning. I've built a full-stack intern management platform, a competitive intelligence tool, and a token governance framework. This is where my passion for AI × HR comes alive.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>好的，四个篇章：</p>
+      <p><b>第一章——基础：</b>在东北大学读工商管理+大数据，GPA 3.74，专业前15%。深度参与学生工作，担任过研究生会和学生会执行主席。在阿勒泰支教一年，作为支教团团长带领26人团队覆盖527名学生，获全国志愿服务大赛铜奖。</p>
+      <p><b>第二章——HRBP 打底：</b>在华大基因做 HRBP 全模块实习，完成15+岗位入职（87%完成率），主导校招薪酬谈判，搭建人事数据看板。</p>
+      <p><b>第三章——规模化招聘：</b>在字节飞书做 AI 开发方向招聘，日均处理100+简历，自主寻访90%，约面转化15%。输出的招聘赋能文档让新人上手效率提升40%。</p>
+      <p><b>第四章——战略 HR + AI：</b>现在腾讯 CSIG 做 OD 和人力规划，独立开发了实习生管理平台、竞对情报平台、token 管理框架。这是我 AI×HR 热情真正爆发的地方。</p>
+    </div>
+    <div class="source-tag">信息源：Amazon "Walk me through your resume" 结构 · 简历数据</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"high",
+    q:"What made you interested in HR?",
+    cn:"为什么对 HR 感兴趣？",
+    hint:"从支教切入——意识到「理解人、设计让人发挥的系统」才是最有力的事。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>My interest in HR started during my year teaching in Altay, Xinjiang. I was teaching math and English to 527 students across 4 grades, and I realized that the most impactful thing I could do wasn't just delivering content — it was understanding what motivated each student, figuring out why some thrived while others struggled, and designing an environment where everyone could perform. I led a 26-person teaching team, and that experience taught me that 'people systems' — the structures that help people do their best work — are what I'm passionate about.</p>
+      <p>When I returned, I saw HR as the professional version of that same instinct. My HRBP internship at BGI Genomics confirmed it — I loved being at the intersection of business strategy and people. At ByteDance, recruitment taught me speed and data-driven decision-making. And now at Tencent, I'm exploring the frontier of AI in HR, which I believe is the most exciting space in the field.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>我对 HR 的兴趣始于阿勒泰支教。我当时教4个年级527名学生的数学和英语，意识到最有影响力的事不是传授知识——而是理解每个人的动力，找出为什么有人出色有人挣扎，设计一个让每个人都能发挥的环境。我带领26人的支教团，这段经历让我意识到「人的系统」——帮助人做到最好的结构——才是我的热情所在。</p>
+      <p>回来后，我把 HR 看作这个直觉的职业版本。华大基因 HRBP 实习印证了这一点——我热爱站在业务战略和人的交叉点。字节招聘教会了我速度和数据驱动。现在腾讯让我探索 AI×HR 的前沿。</p>
+    </div>
+    <div class="source-tag">信息源：个人经历提炼 · UK Interview Guide</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"medium",
+    q:"Why are you interested in our company?",
+    cn:"为什么选择我们公司？",
+    hint:"模板——面试前针对具体公司填入业务亮点、HR团队定位、AI布局。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案（模板，需面试前定制）</span></div>
+    <div class="answer-body">
+      <p>Three reasons:</p>
+      <p>First, <b>your business trajectory</b>. [填入：该公司近期业务亮点]. I'm drawn to companies that are growing fast — that's where HR has the most strategic impact.</p>
+      <p>Second, <b>how your HR team operates</b>. [填入：HR 团队特点]. This aligns with the kind of environment where I can contribute and grow.</p>
+      <p>Third, <b>your approach to AI</b>. [填入：该公司 AI 布局]. Having worked on AI token governance and AI-integrated HR tools at Tencent, I'm very interested in companies thinking seriously about how AI transforms work.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>三个原因：</p>
+      <p>第一，<b>业务发展势头</b>。[填入具体亮点]。我倾向于快速增长的公司——那里 HR 的战略价值最大。</p>
+      <p>第二，<b>HR 团队运作方式</b>。[填入团队特点]。这与我能贡献和成长的环境匹配。</p>
+      <p>第三，<b>AI 布局</b>。[填入 AI 策略]。在腾讯做过 AI token 治理和 AI 集成 HR 工具后，我非常关注认真思考 AI 如何变革工作的公司。</p>
+    </div>
+    <div class="source-tag">信息源：Amazon "Why Amazon" 范例 · UK Interview Guide</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+
+  // ===== M2: Behavioral =====
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.1 团队协作与冲突", priority:"high", isSTAR:true,
+    q:"Tell me about a time you worked with someone whose personality was very different from yours.",
+    cn:"讲述一次与性格截然不同的人合作的经历。",
+    hint:"字节飞书——与偏好异步沟通的开发同事合作，调整为结构化异步更新。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At ByteDance's Feishu team, I was paired with a senior developer on AI-related roles. He was extremely introverted, preferred async communication, and would go hours without responding. I'm naturally more collaborative and verbal.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to maintain a fast pipeline (100+ resumes/day) while respecting his working style.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I adapted. I switched from spontaneous messages to structured daily async updates — a brief summary of candidate status, what I needed, and a deadline. I batched questions instead of sending them one by one. When we needed to sync, I scheduled 15-minute focused calls with clear agendas. I also started pre-writing candidate summaries in a structured format he could scan quickly.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>We successfully maintained a 15% interview conversion rate on these roles. The developer specifically thanked me for being 'easy to work with.' I learned that effective collaboration isn't about finding people who work like you — it's about flexing your style to create a shared rhythm.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在字节飞书团队，我和一位资深开发合作招聘 AI 相关岗位。他极度内向，偏好异步沟通，经常几小时不回消息。我则更偏协作和即时交流。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要在保持日均100+简历处理速度的同时，尊重他的工作风格。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>我做了调整：从自发消息改为结构化的每日异步更新——简要列出候选人状态、需要他做什么、截止时间。把问题批量发送而非逐条发。需要同步时，约15分钟有明确议程的聚焦通话。还开始用结构化格式预写候选人摘要，方便他快速扫读。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>我们在这些岗位上维持了15%的约面转化率。那位开发专门感谢我"好合作"。我学到：有效协作不是找和你一样的人——而是调整自己的风格，建立共同节奏。</div>
+    </div>
+    <div class="source-tag">信息源：Rotman 团队协作为题库 · 简历：字节飞书招聘数据</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.1 团队协作与冲突", priority:"high", isSTAR:true,
+    q:"Describe a time you faced a conflict while working on a team. How did you handle it?",
+    cn:"描述一次团队中的冲突，你是怎么处理的。",
+    hint:"华大基因——两个部门负责人争夺编制名额，用数据化解情绪。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At BGI Genomics, two department heads were in a standoff over headcount allocation. Both felt understaffed, and cross-department collaboration was suffering.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>As the HRBP supporting both teams, I needed to mediate without taking sides, ensuring a fair, data-backed decision.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I met with each head separately to understand their workload data and business priorities. Then I pulled together a comparison: current headcount vs. output metrics vs. planned growth for both teams — shifting the conversation from 'who deserves more' to 'where is the gap biggest.' I facilitated a joint meeting presenting the data neutrally and asked both to co-create a proposal, framing it as 'how do we allocate finite resources to maximize outcomes' rather than 'who wins.'</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>They reached a compromise: the team with more pressing demands got an additional headcount; the other got a next-cycle commitment plus an intern. Both felt heard, and collaboration resumed within a week. Key lesson: conflicts dissolve when you replace emotions with data and reframe win/lose into optimize together.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在华大基因，两个部门负责人因编制分配陷入僵局，都觉得人手不够，跨部门协作受到影响。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>作为支持两个部门的 HRBP，需要不偏不倚地调解，确保公平且基于数据的决策。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>分别约谈两位负责人，了解各自的工作量数据和业务优先级。然后整理对比：当前编制 vs 产出指标 vs 计划增长——把对话从"谁该多要"转向"缺口最大在哪"。主持联合会议，中立呈现数据，请双方共创方案，定位为"如何优化配置有限资源"而非"谁赢"。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>达成妥协：需求更紧迫的团队多得一个编制，另一个获得下周期承诺加一个实习生。双方都觉得被听到了，一周内协作恢复。关键经验：用数据替代情绪、把"输赢"重构为"共同优化"，冲突就会消解。</div>
+    </div>
+    <div class="source-tag">信息源：interviews.chat HR STAR 题库 · 简历：华大基因 HRBP</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.1 团队协作与冲突", priority:"medium", isSTAR:true,
+    q:"Give an example of when you supported a struggling team member.",
+    cn:"举例说明你如何帮助困难的队友。",
+    hint:"支教团——帮助一位教学困难的团员调整方法。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>During my year as teaching team captain in Altay, one team member was struggling with classroom management — their students were disengaged and grades were slipping. I could see the frustration was affecting their confidence.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>As team captain, I wanted to help them improve without making them feel judged, since morale was already fragile.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I invited them to co-teach one of my classes — not to observe theirs, which would feel like evaluation. During the co-teach, I demonstrated some engagement techniques I'd developed (interactive problem-solving, real-life math examples from local culture). Afterward, I asked what they noticed and what they thought might work in their class. I shared my own early struggles — 'my first week, nobody listened to me either' — to normalize the difficulty. I then helped them adapt two techniques for their subject and checked in weekly.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>Within three weeks, their classroom engagement visibly improved. More importantly, they started proactively sharing their own techniques in our team meetings. I learned that the most effective way to help someone isn't to point out problems — it's to model solutions and make improvement feel like their own discovery.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在阿勒泰做支教团长期间，一位团员在课堂管理上遇到困难——学生走神、成绩下滑，我能看到挫败感在影响 ta 的信心。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>作为团长，想帮 ta 提升但不让 ta 觉得被评判，因为士气已经很脆弱。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>我邀请 ta 来我的课堂"共同教学"——不是去 ta 的课堂观察（那会像考核）。共同教学时，我展示了一些互动技巧（结合当地文化的数学实例）。课后问 ta 注意到了什么、觉得什么可能适合 ta 的课堂。我分享了自己最初的困境——"我第一周也没人听"——来让困难正常化。之后帮 ta 改编两个技巧，每周跟进。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>三周内课堂参与度明显提升。更重要的是，ta 开始在团队会上主动分享自己的教学技巧。我学到：帮助别人最有效的方式不是指出问题——而是示范解法，让改善成为 ta 自己的发现。</div>
+    </div>
+    <div class="source-tag">信息源：Lawrence University 行为题库 · 简历：支教团团长经历</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.2 领导力与主动性", priority:"high", isSTAR:true,
+    q:"Tell me about a time you demonstrated leadership without formal authority.",
+    cn:"讲述一次没有正式职权但展现了领导力的经历。",
+    hint:"腾讯人才评估工作台——没有被正式指派为负责人，但主动推动多方对齐。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, I was tasked with designing the automation plan for a talent evaluation workbench. Multiple stakeholders — HR business partners, data teams, IT — had different expectations, but no formal project lead was assigned. Progress was stalling.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to align stakeholders, identify the 6 data gaps between existing systems and offline processes, and drive a product direction — all without being anyone's boss.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I took three steps. First, I conducted interviews with all stakeholders to map the complete talent evaluation workflow — performance, promotion, talent pool reviews. I documented the 6 specific data gaps I found in a one-page brief. Second, I created a priority matrix mapping each feature to business value and effort, and facilitated a session where the group decided collectively. Third, I set up weekly 30-minute syncs with concise follow-up notes, using 'I suggest we...' language rather than 'you need to...' — making decisions visible and easy to align on.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The project moved from stalled to on-track. The business and tech sides aligned on a product direction, and my mentor praised the 'clarity of process' I brought. I learned that leadership without authority is about reducing ambiguity for others — when you make it easy to say yes and hard to lose track of decisions, momentum follows.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，我负责设计人才评估工作台的自动化方案。多个利益方——HRBP、数据团队、IT——期望不同，但没有指派正式项目负责人，进度停滞。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要对齐各方，识别现有系统与线下流程间的6处数据断层，推动产品方向——全程不是任何人的上级。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>三步走：第一，访谈所有利益方，梳理完整的人才评估工作流（绩效、晋升、梯队盘点），将6处数据断层整理成一页 brief。第二，创建优先级矩阵，将每个功能映射到业务价值和工作量，引导集体决策。第三，设每周30分钟同步会，发简明纪要，用"建议我们……"而非"你需要……"——让决策可见、易于对齐。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>项目从停滞转为推进。业务方与技术侧对齐了产品方向，MT 表扬了我带来的"流程清晰感"。我学到：没有职权的领导力就是为他人减少模糊——当你让人容易说"好"、不容易忘记决策，动力自然就来。</div>
+    </div>
+    <div class="source-tag">信息源：Amazon LP (Ownership) · 简历：人才评估工作台6处数据断层</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.2 领导力与主动性", priority:"high", isSTAR:true,
+    q:"Describe a time you took initiative beyond your assigned responsibilities.",
+    cn:"描述一次你主动超出职责范围做事的经历。",
+    hint:"独立开发实习生培养管理平台——没被要求写代码，但主动用 Vibe coding 做了全栈产品。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, I noticed our team had no systematic way to track intern development — daily logs, 1on1 records, milestones, and training plans were all scattered across different documents and chats.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>This wasn't my assigned responsibility — my role was OD and workforce planning. But I saw a gap I could fill.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I independently designed and built an intern development management platform using Vibe coding. The platform covers daily logs, 1on1 records, milestones, and training plans. I integrated the Tencent Docs Open API for automatic log syncing, and built a WeCom bot with AES encryption and WebSocket for message pushing and automatic meeting todo extraction. The front-end and back-end combined to about 4,000 lines of code. I deployed it internally and promoted it to the team.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The platform was adopted by the team and is actively used for intern management. It turned a scattered process into a centralized system. My mentor saw this as a sign that I could identify problems and build solutions end-to-end, which led to more ownership opportunities — including the competitive intelligence platform I built next.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，我发现团队没有系统化的实习生培养追踪方式——日志、1on1记录、里程碑、培养计划散落在不同文档和聊天中。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>这不是我被分配的职责——我的角色是 OD 和人力规划。但我看到了可以填的缺口。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>我用 Vibe coding 独立设计开发了实习生培养管理平台，覆盖每日日志、1on1记录、里程碑、培养计划。接入了腾讯文档 Open API 实现日志自动同步，集成了企微机器人（AES加解密 + WebSocket）实现消息推送和会议待办自动提取。前后端约4000行代码。内部部署后推广给团队使用。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>平台被团队采纳并持续使用，把散落流程变成了集中系统。MT 认为这证明了我能端到端地发现问题并构建解法，之后给了我更多负责机会——包括竞对情报平台。</div>
+    </div>
+    <div class="source-tag">信息源：Amazon LP (Bias for Action) · 简历：Vibe coding 平台4000行</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.2 领导力与主动性", priority:"medium", isSTAR:true,
+    q:"Tell me about a project you initiated that wasn't part of your core role.",
+    cn:"讲述一个你主动发起的非核心职责项目。",
+    hint:"竞对情报管理平台——Playwright抓取1394条岗位，输出结构化分析报告。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, I realized our team lacked systematic competitive intelligence on talent. We'd occasionally hear anecdotes about competitor hiring, but had no structured data to inform our own workforce planning.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>This wasn't in my JD, but I saw an opportunity to build something that would create lasting value.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I developed a competitive intelligence platform. Using opencli and Playwright, I built a scraper that pulled 1,394 active job postings from BOSS Zhipin across 5 competitor companies. I structured the data into job profiles and cross-comparison analysis reports. I also systematically analyzed 5 cloud subsidiary companies — including Haojing Tech, iSoftStone, and ChinaSoft — examining their workforce scale, cloud/AI product matrices, and strategic moves. I distilled the analysis framework into a reusable Skill, and output a single-page HTML report with 8 ECharts visualizations.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The reports gave our leadership team unprecedented visibility into competitor talent strategies. The reusable Skill framework meant future competitive analysis could be done in days rather than weeks. My mentor highlighted this as an example of 'building infrastructure, not just completing tasks' — which is exactly the mindset I want to bring to every role.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，我发现团队在人才方面缺乏系统的竞对情报——偶尔听到竞对招聘的碎片信息，但没有结构化数据支撑人力规划。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>这不在我 JD 里，但我看到了创造长期价值的机会。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>开发了竞对情报管理平台。用 opencli + Playwright 写爬虫，从 BOSS 直聘抓取5家竞对公司的1394条在招岗位。结构化为岗位画像和交叉对比分析报告。还系统分析了浩鲸科技、软通动力、中软国际等5家云厂商子公司的人力规模、云/AI产品矩阵和战略动向。把分析框架沉淀为可复用 Skill，输出含8个 ECharts 图表的单页 HTML 报告。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>报告让管理层首次系统看到竞对人才战略。可复用 Skill 框架让后续竞对分析从"周"缩短到"天"。MT 说这是"建基础设施，而不只是完成任务"的典范——正是我想在每个角色中带来的心态。</div>
+    </div>
+    <div class="source-tag">信息源：简历：竞对情报平台1394条岗位 · 5家云厂商分析</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.3 问题解决与决策", priority:"high", isSTAR:true,
+    q:"Tell me about a time you solved a complex problem under pressure.",
+    cn:"讲述一次在压力下解决复杂问题的经历。",
+    hint:"字节飞书——日均100+简历但约面转化率不达标，用漏斗分析定位瓶颈。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At ByteDance's Feishu team, I was handling AI developer recruitment — processing 100+ resumes daily, pushing 30+ recommendations, but the interview conversion rate was stuck at 15% and hiring managers wanted more. The pressure was intense.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to improve conversion without simply working more hours — I was already at capacity.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I broke down my pipeline data: sourcing → screening → recommendation → hiring manager review → interview. I found that while I was sourcing effectively (90% self-sourced), the bottleneck was at the hiring manager review stage — managers were taking 3-4 days to respond to my recommendations, during which candidates went cold. I created a structured 'candidate card' format — a one-glance summary with tech stack match, highlight, and risk flag — that reduced manager review time from 3-4 days to under 1 day. I also started sending a daily 'top 3 priority' message to each manager, rather than letting recommendations pile up.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>Manager response time dropped significantly, and my conversion rate improved from 15% to about 20% within a month. I also documented the approach in a recruitment enablement doc that improved new hire ramp-up efficiency by 40%. The key learning: under pressure, the instinct is to work harder, but the right move is to find the bottleneck and work smarter.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在字节飞书做 AI 开发方向招聘，日均处理100+简历、推评30+，但约面转化率卡在15%，用人方要求更多。压力很大。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要在不增加工时的情况下提升转化——我已经满负荷了。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>拆解漏斗数据：寻访→筛选→推评→用人方审核→面试。发现瓶颈在用人方审核环节——manager 要3-4天才回复推评，期间候选人就凉了。我创建了结构化"候选人卡片"格式——一眼扫完的技术栈匹配、亮点、风险标记——把 manager 审核时间从3-4天降到1天以内。还开始每天给每个 manager 发"今日3个优先"消息，不让推评堆积。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>manager 响应时间大幅缩短，转化率一个月内从15%提升到约20%。我还把方法整理成招聘赋能文档，让新人上手效率提升40%。关键学习：压力下的本能是更努力工作，但正确的做法是找到瓶颈、更聪明地工作。</div>
+    </div>
+    <div class="source-tag">信息源：简历：日均100+简历、90%自主寻访、15%转化、新人效率提升40%</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.3 问题解决与决策", priority:"high", isSTAR:true,
+    q:"Give an example of a decision you made with incomplete information.",
+    cn:"举例说明你在信息不完整时做出的决策。",
+    hint:"人才评估工作台——业务规则没定完就得做架构决策，用可配置设计应对不确定性。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>When designing the talent evaluation workbench at Tencent, I had to make architecture decisions before all business rules were finalized. The performance calibration rules were still being debated, and I'd identified 6 data gaps between systems that hadn't been resolved. But the deadline was fixed.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed a design that would work regardless of how pending rules landed, without over-engineering.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I identified the two most likely scenarios and designed for both. Instead of hardcoding business logic, I built a configurable rules layer — a settings panel where calibration formulas could be adjusted without touching core code. For the data gaps, I created a data adapter pattern that could map different source schemas to a unified internal model. I documented my assumptions explicitly, flagged them to stakeholders, and set a review checkpoint for when rules were finalized.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>When calibration rules were confirmed — different from both anticipated scenarios — the configurable design meant we only adjusted settings, not rebuilt. The project stayed on schedule. I learned: when you can't eliminate uncertainty, design for flexibility and make assumptions visible. 'I assumed X because Y, and here's how we'd adjust' is more credible than 'I guessed and hoped.'</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>设计腾讯人才评估工作台时，业务规则没定完就得做架构决策。绩效校准规则还在讨论，我已发现6处数据断层尚未解决。但截止日期是固定的。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要一种无论规则怎么落地都能适配的设计，又不能过度工程化。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>识别了两种最可能的场景，为两者做设计。不硬编码业务逻辑，而是建了可配置规则层——校准公式可在设置面板调整而不用改核心代码。针对数据缺口，设计了 data adapter 模式，统一映射不同数据源。明确记录假设，向利益方标注，设定了规则确认后的检查点。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>校准规则最终确认时——和两个预期都不同——但可配置设计意味着只调设置不重建。项目如期推进。学到：无法消除不确定性时，为灵活性设计、让假设可见。"我基于 Y 假设了 X，如果不对这样调整"比"我猜了然后祈祷"可信得多。</div>
+    </div>
+    <div class="source-tag">信息源：Amazon LP (Dive Deep) · 简历：6处数据断层</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.3 问题解决与决策", priority:"medium", isSTAR:true,
+    q:"Tell me about a time you used data to solve a problem.",
+    cn:"讲述一次你用数据解决问题的经历。",
+    hint:"华大基因——提取清洗后台数据，测算人事费用率/新进率/流动率，可视化汇报。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At BGI Genomics, business leaders were making decisions about team sizing and budgets based on gut feel, not data. There was no regular HR reporting, and the raw data existed but had never been cleaned or structured.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to turn raw backend data into actionable HR metrics that business leaders could actually use for decisions.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I extracted and cleaned the backend data — dealing with format inconsistencies, missing fields, and duplicate records. I calculated key HR metrics: personnel cost rate, new hire rate, turnover rate, and compared them against industry benchmarks. I selected appropriate visualization charts for each metric — trend lines for turnover, bar charts for cost rates by department — and built a dashboard-style report. I presented it to department managers, walking them through what each metric meant and what actions it suggested.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The report became a recurring decision-support tool. Managers started requesting specific cuts of the data for their own planning. The key learning: in HR, data doesn't just solve problems — it reframes conversations from subjective ('I feel like turnover is high') to objective ('turnover in Department X is 18% vs. the company average of 12%'), which makes solutions easier to align on.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在华大基因，业务负责人靠感觉做团队规模和预算决策。没有定期 HR 报表，原始数据存在但从未清洗或结构化。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要把后台原始数据变成业务负责人能用于决策的 HR 指标。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>提取并清洗后台数据——处理格式不一致、缺字段、重复记录。计算了关键 HR 指标：人事费用率、新进率、流动率，并对照行业基准。为每个指标选合适的可视化图表——流动率用趋势线、各部门费用率用柱状图——做了看板式报告。向部门负责人汇报，逐个解释指标含义和建议行动。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>报告成了常规决策支持工具。各负责人开始主动要求数据切片做自己的规划。关键学习：在 HR 中数据不只是解决问题——它把对话从主观（"我觉得流动率高"）重构为客观（"X部门流动率18% vs 公司均值12%"），让方案更容易对齐。</div>
+    </div>
+    <div class="source-tag">信息源：简历：华大基因数据分析（人事费用率/新进率/流动率）</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.4 沟通与影响力", priority:"high", isSTAR:true,
+    q:"Describe a time you had to communicate something difficult to a supervisor.",
+    cn:"描述一次你向上级传递困难信息的经历。",
+    hint:"告诉 MT 人才评估工作台原定时间线不现实——带方案而非道歉去沟通。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>Early in the talent evaluation workbench project at Tencent, I realized the original timeline was unrealistic. The scope was bigger than expected — I'd found 6 data gaps, and several dependencies hadn't been accounted for.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to tell my mentor the timeline needed to change, without seeming like someone who simply failed to deliver.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I prepared. I broke down the original timeline against actual progress, identified the three specific bottlenecks (the 6 data gaps, unresolved business rules, and data team dependencies), and came with two options: (1) keep the deadline but reduce scope to MVP, or (2) extend by two weeks with full scope. I led with data, not apology: 'I've mapped the remaining work against our timeline, and I want to walk you through where we are and two paths forward.' I was honest about my original underestimate, but focused on solutions.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>My mentor appreciated the transparency and that I came with options, not just problems. We chose the MVP approach — ship smaller, then iterate. The project launched successfully, and my mentor later said the way I handled that conversation was what made them trust me with more ownership. Lesson: bad news doesn't damage trust — hiding it or coming without a plan does.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>腾讯人才评估工作台项目早期，我发现原定时间线不现实。范围比预期大——发现了6处数据断层，几个依赖也没算进去。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要告诉 MT 时间线要改，但不能让人觉得是没完成好。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>做了准备：把原时间线和实际进度对比，指出三个具体瓶颈（6处数据断层、未定业务规则、数据团队依赖），带两个方案去：①保截止日但缩范围到MVP；②延两周保全部范围。用数据开头，不用道歉："我把剩余工作和时间线对了一下，想跟你过一下现状和两条路径。"诚实承认最初估算不足，但聚焦方案。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>MT 欣赏透明度，也认可我带方案而非只带问题。选了MVP方案——先上小的再迭代。项目成功上线，MT 后来说我处理这次对话的方式让她更信任我。经验：坏消息不伤信任——藏消息或没方案才伤。</div>
+    </div>
+    <div class="source-tag">信息源：Amazon LP (Earn Trust) · 简历：人才评估工作台</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.4 沟通与影响力", priority:"medium", isSTAR:true,
+    q:"Tell me about a time you explained a complex topic to someone with limited knowledge.",
+    cn:"讲述一次你向不熟悉该领域的人解释复杂概念的经历。",
+    hint:"向非 HR 的业务方解释绩效校准规则——用类比+一页流程图。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, I needed to explain the performance calibration process to non-HR business stakeholders. The process involved multi-round calibration, cross-line comparison, and forced distribution — all HR jargon to them.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed them to understand well enough to participate meaningfully in calibration sessions, not just nod along.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I replaced jargon with analogies. I compared calibration to 'grading on a curve across classrooms' — each classroom (business line) has its own teacher, but we need shared standards so a 'B' means the same everywhere. I drew a one-page flowchart: self-assessment → manager review → cross-line calibration → final approval. I also created a 2-minute 'calibration in a nutshell' summary. When they asked questions, I answered with examples from their own teams.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>Stakeholders engaged actively in calibration sessions — asking informed questions and flagging genuine concerns. One leader said it was the first time the process 'actually made sense.' I learned: the test of understanding a complex topic isn't whether you can explain it in jargon — it's whether you can explain it in a metaphor your audience already lives with.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯需要向非 HR 的业务方解释绩效校准流程——涉及多轮校准、跨条线对比、强制分布——全是 HR 术语。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要让他们理解到能在校准会议中真正参与，而不只是点头。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>用类比替换术语。把校准比作"跨教室曲线评分"——每个教室（条线）有自己的老师，但需要统一标准让"B"在各处含义一致。画了一页流程图：自评→主管评审→跨条线校准→最终审批。还做了2分钟"校准一句话版"摘要。提问时用他们自己团队的例子回答。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>业务方在校准会上积极参与——问出有质量的问题、标出真正的顾虑。一位负责人说这是第一次"真的搞懂了"。学到：理解复杂话题的考验不是能否用术语讲——而是能否用受众已有的比喻讲。</div>
+    </div>
+    <div class="source-tag">信息源：CV Career Consultants 沟通题 · 简历：腾讯绩效校准</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.5 适应性与韧性", priority:"high", isSTAR:true,
+    q:"Tell me about a time you had to adapt quickly to significant change.",
+    cn:"讲述一次你快速适应重大变化的经历。",
+    hint:"从阿勒泰支教到字节飞书实习——从乡村教育到互联网高节奏的剧变。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>After spending a year as a teaching volunteer in Altay, Xinjiang — a remote town where I led a 26-person team teaching 527 students — I transitioned to ByteDance's Feishu team in Beijing. The contrast was extreme: from a rural school to one of the fastest-paced tech companies in the world.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to adapt to a radically different work culture, learn recruitment tools and processes I'd never used, and prove my value within a short 3-month internship.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I treated it like learning a new language. In my first week, I shadowed every recruiter for at least an hour, taking detailed notes. I built a 'cheat sheet' of all internal tools, acronyms, and processes. I set a rule: ask a question once, document the answer so I never asked twice. I sought feedback every Friday from my mentor. Most importantly, I drew on the adaptability I'd developed in Altay: if I could build trust with 527 students across different grades and language backgrounds, I could certainly learn to work with developers and hiring managers.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>Within three weeks, I was running my own pipelines — processing 100+ resumes/day with 90% self-sourced rate. My mentor noted I'd ramped up faster than most interns. The Altay experience, which initially felt like a 'gap' in my resume, turned out to be my biggest asset — it had taught me how to be comfortable being uncomfortable.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在阿勒泰支教一年——带领26人团队教527名学生——之后，直接转到字节飞书实习。反差极大：从乡村学校到全球最快节奏的科技公司之一。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要在3个月实习期内适应完全不同的工作文化、学会从没用过的招聘工具和流程、并证明价值。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>当成学新语言。第一周跟每个招聘同事至少一小时，做详细笔记。做了内部工具、缩写、流程的"速查表"。定了一条规则：一个问题只问一次，记下来不再问第二次。每周五主动找 mentor 要反馈。最重要的是，我调用在阿勒泰培养的适应力：如果我能和527个不同年级、不同语言背景的学生建立信任，我当然能学会和开发、用人方合作。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>三周内开始独立跑管线——日均处理100+简历、90%自主寻访。MT 说我比大多数实习生上手都快。阿勒泰经历最初像简历上的"空窗"，结果成了最大资产——它教会了我如何在不适中保持从容。</div>
+    </div>
+    <div class="source-tag">信息源：简历：支教527名学生/团长 + 字节飞书100+简历/日</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.5 适应性与韧性", priority:"high", isSTAR:true,
+    q:"Describe a time you had to deal with ambiguity.",
+    cn:"描述一次你应对模糊性的经历。",
+    hint:"MT 给了'探索 AI token 管理'这个开放问题——没有框架、没有先例。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, my mentor asked me to 'explore AI token management' — deliberately open-ended. No template, no precedent, no defined deliverable. Pure ambiguity.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to create structure from nothing — define the problem, propose a direction, produce something useful.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I broke the ambiguity into pieces. First, I defined what I didn't know: How much were we spending? Who was using AI? What were the use cases? What was the industry standard? I tackled each: pulled usage data, interviewed team members, researched external benchmarks. Once I had data, I reframed: 'Our team spends approximately X per month, with Y% on ad-hoc use that could be standardized.' I then proposed a three-tier allocation model — baseline budget, project pool, on-demand flow — and asked my mentor to confirm or redirect, giving them a concrete artifact to react to.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The framework was adopted and I documented it as an operational manual for daily token-saving practices. I developed a repeatable method: inventory unknowns → gather data → reframe concretely → propose direction → ask for redirect. This has become one of my most valuable professional skills.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，MT 让我"探索 AI token 管理"——故意开放。没有模板、没有先例、没有明确交付物。纯模糊。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要从无到有创建结构——定义问题、提出方向、产出有用的东西。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>把模糊拆成碎片。先列出不知道的：花了多少钱？谁在用？什么场景？行业标准是什么？逐一解决：拉使用数据、访谈团队成员、调研外部基准。有了数据后重构："团队每月约花 X，其中 Y% 是可标准化的临时使用。"然后提出三级分配模型——基础配额、项目池、按需申请——给 MT 一个具体的东西来确认或修正。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>框架被采纳，我还沉淀了日常节省 Token 的操作手册。发展出了可复用的方法：盘点未知→收集数据→具体重构→提方向→请求修正。这成了我最有价值的职业技能之一。</div>
+    </div>
+    <div class="source-tag">信息源：简历：Token规划管理+操作手册文档 · Amazon LP (Dive Deep)</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.6 失败与成长 (STARR)", priority:"high", isSTAR:true,
+    q:"Tell me about a time you failed. What did you learn?",
+    cn:"讲述一次失败的经历，你学到了什么？",
+    hint:"STARR结构——字节招聘中对候选人技术匹配度判断失误。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STARR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At ByteDance's Feishu team, I was recruiting for a large model development role. I found a candidate whose resume had impressive AI keywords and project names. I fast-tracked them through screening.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>My job was to identify qualified candidates and move them efficiently.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I let resume surface signals override deeper probing. During screening, the candidate gave vague answers about their model architecture decisions, but I rationalized it as 'maybe they're just not great at explaining verbally.' I didn't dig into specific technical examples. I pushed them through with a strong recommendation.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The candidate failed the technical interview badly — couldn't answer fundamental questions about the models on their own resume. The hiring manager was frustrated about wasted time. I'd let my eagerness to fill the role override my duty to properly vet.</div>
+      <div class="star-section star-refl"><span class="star-label">Reflection</span>After that, I created a screening protocol: for any AI developer role, I'd ask at least three 'tell me about a specific time when...' questions requiring concrete examples. I also created the 'Big Model Recruitment Guide for HR' doc that was adopted by the team and improved new hire ramp-up by 40%. In the remaining months, I had zero failed-at-technical-stage candidates. That failure taught me: speed without quality isn't efficiency — it's deferred waste.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在字节飞书招大模型开发岗，找到一个简历上 AI 关键词和项目名很亮眼的候选人，我快速推过了筛选。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>我的职责是高效识别合格候选人。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>让简历表面信号盖过了深入探查。筛选中候选人对模型架构决策讲得含糊，我替 ta 找理由"可能只是不善表达"，没追问具体技术案例，就强推了。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>候选人在技术面中严重失败——简历上的模型都答不出基本问题。用人方对浪费时间很不满。我让"急于填补岗位"盖过了"正确把关"的职责。</div>
+      <div class="star-section star-refl"><span class="star-label">反思</span>之后我建了筛选协议：AI 开发岗至少问三个"讲一次具体经历……"的问题，要求具体案例。还写了《面向HR的大模型招聘指南》被团队采纳，新人效率提升40%。剩余月份零技术面失败案例。那次失败教会我：没有质量的速度不是效率——是延迟的浪费。</div>
+    </div>
+    <div class="source-tag">信息源：Mocky.pro STARR · 简历：面向HR的大模型招聘指南+新人效率提升40%</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.6 失败与成长 (STARR)", priority:"high", isSTAR:true,
+    q:"Describe a time you received feedback that was hard to hear. How did you respond?",
+    cn:"描述一次你收到刺耳反馈的经历，你是怎么回应的？",
+    hint:"MT 说绩效框架初稿太理论化——不够贴业务。用 STARR。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STARR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, I spent significant effort creating a comprehensive performance evaluation framework. When I presented it to my mentor, she said: 'This is well-designed on paper, but no business leader will actually use it. It's too complex and disconnected from how they think about performance.'</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>My first instinct was to defend my work — but I knew if my mentor felt this way, business leaders would feel it more strongly.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I asked: 'Can you walk me through what a business leader would find confusing?' Instead of arguing, I listened. Then I interviewed two business leaders about how they think about performance — what language they use, what dimensions matter. I discovered they think in terms of 'did this person deliver?' and 'are they growing?', not multi-dimensional scoring matrices. I redesigned using their language, simplifying from 7 dimensions to 3, framing each in business terms.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The revised framework was adopted. My mentor said the difference was 'night and day' — from an HR document to a business tool. Business leaders felt ownership because their language was reflected.</div>
+      <div class="star-section star-refl"><span class="star-label">Reflection</span>That feedback stung, but it was one of the most valuable moments of my internship. It taught me: in HR, 'well-designed' doesn't mean 'theoretically perfect' — it means 'usable by the people who need to use it.' I now build a 'would a business leader actually use this?' check into every framework I design.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯花了很多精力做了一套全面的绩效评估框架。给 MT 看时，她说："纸面上设计得不错，但业务负责人不会真用。太复杂、不贴业务。"</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>第一反应是辩解——但我知道如果 MT 这么觉得，业务方会更强烈。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>我问："能不能带我过一下业务负责人会觉得哪里看不懂？"不争辩，只听。然后访谈了两位业务负责人，了解他们怎么想绩效——用什么语言、哪些维度重要。发现他们想的是"这人交付了吗？""在成长吗？"——不是多维评分矩阵。我用他们的语言重做，从7个维度简化到3个，每个维度用业务语言表述。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>修订版被采纳。MT 说差异是"天壤之别"——从 HR 文件变成了业务工具。业务方因为看到自己的语言而有了归属感。</div>
+      <div class="star-section star-refl"><span class="star-label">反思</span>那次反馈很难受，但是最有价值的时刻之一。学到：在 HR 中"设计好"不是"理论上完美"——而是"需要用的人能用得上"。我现在每个框架都加一个"业务负责人真的会用吗？"的自检。</div>
+    </div>
+    <div class="source-tag">信息源：Mocky.pro STARR · CV Career Consultants</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.7 变革管理", priority:"high", isSTAR:true,
+    q:"Tell me about a change you brought about in your role.",
+    cn:"讲述一次你在岗位上推动的变革。",
+    hint:"AI token 管理——从无序使用到三级配额体系+操作手册。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, there was no AI token governance. People used AI tools freely, costs were unpredictable, and leadership was starting to question ROI. There was a real risk of blanket restriction.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to introduce governance that controlled costs without stifling productive AI use.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I designed a three-tier allocation model: baseline budget for everyone (routine use), project pool (approved by team lead for specific deliverables), and on-demand flow (exceptional needs). I incorporated token costs into the department's resource pool allocation, assisted each business department with their platform-specific token planning, and created an operational manual documenting daily token-saving practices. I framed it as 'enabling sustainable AI use' rather than 'restricting access.'</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>Costs became predictable and within budget, while productive usage actually increased — people felt confident using their allocation and knew how to request more. The model and manual were shared as reference for other teams. Key learning: change management in HR isn't about imposing rules — it's about creating systems where the desired behavior is also the easiest behavior.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，AI token 没有治理。大家随意使用，成本不可预测，管理层开始质疑 ROI。有全面限制的风险。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要引入既控成本又不压制 AI 使用的治理。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>设计了三级分配模型：基础配额（日常用）、项目池（团队负责人审批）、按需申请（特殊需求）。把算力成本纳入部门资源池分配，协助各业务部门推进不同平台的 Token 规划，沉淀了日常节省 Token 的操作手册。定位为"让 AI 可持续使用"而非"限制使用"。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>成本变得可预测且在预算内，但有效使用反而增加——人们对配额有信心、知道怎么申请更多。模型和手册被分享给其他团队做参考。关键学习：HR 的变革管理不是强加规则——而是创造让期望行为也成为最容易行为的系统。</div>
+    </div>
+    <div class="source-tag">信息源：简历：Token规划管理+操作手册文档 · Rotman 变更管理</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:2, moduleLabel:"行为面试 STAR", subGroup:"2.8 数据驱动与伦理", priority:"medium", isSTAR:true,
+    q:"Describe a time you faced an ethical dilemma at work.",
+    cn:"描述一次你在工作中面临的伦理困境。",
+    hint:"发现招聘渠道偏向名校——系统性排除了有能力但非名校的候选人。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>During recruitment at ByteDance, I noticed our sourcing strategy heavily prioritized candidates from target universities. While efficient (higher pass rate, faster sourcing), it systematically excluded capable candidates from other schools.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>The target-school approach worked by metrics, but felt ethically questionable. Should I raise it, knowing it might slow our process?</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I raised it — but with data, not just principle. I pulled a sample of non-target-school hires who'd joined through other channels and compared their performance metrics. The data showed no significant performance difference. I presented this to my team lead and suggested expanding sourcing to 3 additional schools as a pilot. I framed it as 'we might be missing good candidates' rather than 'our process is unfair.'</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The team lead agreed to a pilot. Pass-through rate was slightly lower (more screening needed), but candidates who passed performed equally well. The pilot opened the door to a more inclusive sourcing strategy. Lesson: ethical dilemmas are best addressed with data and small experiments, not grandstand arguments.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在字节招聘中，我发现寻访策略严重偏向目标院校。虽然效率高（通过率高、寻访快），但系统性地排除了非名校但有能力的候选人。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>目标院校策略在指标上是有效的，但在伦理上值得质疑。要提出来吗？知道可能拖慢流程。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>用数据而非道义提出。拉了一组通过其他渠道入职的非目标校候选人的绩效数据做对比——数据显示无显著差异。向团队负责人建议扩展3所学校做试点。定位为"我们可能错过了好候选人"而非"我们不公平"。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>负责人同意试点。通过率略低（需要更多筛选），但通过的候选人表现一样好。试点为更包容的寻访策略开了门。经验：伦理困境最好用数据和小实验回应，而非高调辩论。</div>
+    </div>
+    <div class="source-tag">信息源：CV Career Consultants 伦理题 · 简历：字节招聘经验</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+
+  // ===== M3: HR-Specific =====
+  {
+    module:3, moduleLabel:"HR 专业场景", subGroup:"3.1 招聘与人才获取", priority:"high", isSTAR:true,
+    q:"Describe a complex recruitment challenge you faced and how you overcame it.",
+    cn:"描述你遇到的一个复杂招聘挑战，以及如何克服的。",
+    hint:"字节飞书——大模型开发岗，技术门槛高+候选人稀缺+需理解AI技术场景。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At ByteDance's Feishu team, I was recruiting for large model development roles — a highly competitive market where the same candidates were being pursued by multiple companies. The technical bar was extremely high, and I needed to deeply understand AI development scenarios to assess candidate fit.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to fill these roles with quality candidates while maintaining a high self-sourcing rate (I was at 90%) and improving conversion (stuck at 15%).</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I took a 'become a domain expert' approach. I dove into the technical scenarios — large model development, compliance, data security — to understand the actual job requirements beyond the JD. I mapped out which tech stacks mattered for which sub-roles. I created structured candidate cards that flagged tech stack match, highlight, and risk — reducing hiring manager review time. I also built a recruitment enablement doc — 'The Big Model Recruitment Guide for HR' — covering business communication scripts, tech stack matching logic, and salary negotiation points. I shared this with the team.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The enablement doc improved new hire ramp-up efficiency by 40%. My conversion rate improved from 15% to ~20%. The team adopted my candidate card format and info talk framework as standard practice. The key learning: in technical recruitment, the differentiator isn't sourcing volume — it's domain depth. The more I understood the technology, the better I could match candidates and the more hiring managers trusted my recommendations.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在字节飞书招大模型开发岗——市场竞争极激烈，技术门槛极高，需要深入理解 AI 开发场景才能评估匹配度。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要保质保量填补岗位，同时维持90%自主寻访率、改善15%的约面转化。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>采取"成为领域专家"策略。深入技术场景——大模型开发、合规、数据安全——理解 JD 之外的真实需求。梳理了哪些技术栈对应哪些细分岗位。创建结构化"候选人卡片"（技术栈匹配、亮点、风险标记），缩短用人方审核时间。还写了《面向HR的大模型招聘指南》——涵盖业务沟通话术、技术栈匹配逻辑、薪酬谈判要点——分享给团队。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>赋能文档让新人效率提升40%。转化率从15%提升到约20%。团队把候选人卡片格式和 info talk 框架采纳为标准做法。关键学习：技术招聘的差异化不在寻访量——而在领域深度。越懂技术，越能匹配候选人，用人方越信任推荐。</div>
+    </div>
+    <div class="source-tag">信息源：简历：90%自主寻访/15%转化/新人效率提升40%/大模型招聘指南</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:3, moduleLabel:"HR 专业场景", subGroup:"3.2 绩效与员工关系", priority:"high", isSTAR:true,
+    q:"Tell me about a time you had to deal with a difficult employee situation or conflict.",
+    cn:"讲述一次你处理困难员工关系或冲突的经历。",
+    hint:"华大基因 HRBP——处理部门负责人和员工之间的公开批评螺旋。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At BGI Genomics, a manager was giving negative feedback to an employee in public settings — team meetings, group chats. The employee became disengaged and started missing deadlines, which the manager cited as further evidence of poor performance. It was a downward spiral.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>As HRBP, I needed to intervene — supporting the employee and coaching the manager — without taking sides.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I met with the employee first, privately, to listen and validate. I also helped them see that their performance decline was making things worse. Then I met with the manager — privately — using a coaching approach: 'How do you think your feedback is being received?' The manager hadn't realized public feedback was demoralizing, not motivating. I introduced a simple rule: corrective feedback is always private, positive feedback can be public. I also suggested bi-weekly 1:1s.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>Within a month, the dynamic improved. The employee's performance recovered, and the manager started using private channels for corrective feedback. Both separately thanked me. Lesson: in employee relations, you rarely need to 'pick a side' — you need to help both parties see each other's perspective and give them better tools to interact.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在华大基因，一个 manager 在公开场合（团队会、群聊）给员工负面反馈。员工变得消沉、开始错过截止日期，manager 又拿这个当绩效差的证据。恶性循环。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>作为 HRBP，需要介入——支持员工+辅导 manager——不站队。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>先私下见员工，倾听和确认感受，也帮 ta 看到绩效下滑在让情况更糟。然后私下见 manager，用辅导方式："你觉得你的反馈被怎么接收的？"manager 没意识到公开批评是打击而非激励。我引入一条简单规则：纠正性反馈永远私下，表扬可以公开。还建议双周1:1。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>一个月内互动改善。员工绩效恢复，manager 开始用私下渠道给纠正反馈。两人分别感谢我。经验：员工关系中很少需要"站队"——需要的是帮双方看到对方视角，给更好的互动工具。</div>
+    </div>
+    <div class="source-tag">信息源：interviews.chat HR Specialist · 简历：华大基因 HRBP</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:3, moduleLabel:"HR 专业场景", subGroup:"3.3 人力规划与组织发展", priority:"medium",
+    q:"How do you approach workforce planning for a rapidly growing team?",
+    cn:"你如何为快速增长的团队做人力规划？",
+    hint:"结合子公司人才转型经验+竞对情报分析+OD实操。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>I approach it in four phases, informed by my current OD work at Tencent:</p>
+      <p><b>1. Understand business trajectory:</b> Partner with business leaders to map growth targets, new capabilities needed, and timeline. The plan must be driven by business needs, not HR assumptions.</p>
+      <p><b>2. Assess current capability + competitive landscape:</b> I inventory existing skills, performance, and potential. I also bring competitive intelligence — my platform that scraped 1,394 competitor job postings gives us real-time visibility into what competitors are hiring for, which signals where the market is heading.</p>
+      <p><b>3. Build the gap plan:</b> Fill gaps through hiring, upskilling, and restructuring. I prioritize internal solutions before external hiring. In my current work on subsidiary talent transformation, this means identifying which team members can transition to AI-augmented roles versus which need upskilling.</p>
+      <p><b>4. Create flexibility:</b> Build scenarios (base, stretch, conservative) rather than a single forecast. Build pipeline before need — I've done this by maintaining warm candidate relationships even before reqs are approved.</p>
+      <p>The biggest lesson from my current role: workforce planning in the AI era isn't just about headcount — it's about capability transformation. Sometimes the question isn't 'do we need more people?' but 'do our current people need to become different people?'</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>分四步，基于我在腾讯的 OD 实操：</p>
+      <p><b>1. 理解业务轨迹：</b>和业务负责人一起梳理增长目标、新能力需求、时间线。计划必须由业务驱动，不是 HR 假设。</p>
+      <p><b>2. 盘点现有能力+竞对格局：</b>盘点现有技能、绩效、潜力。还带入竞对情报——我开发的抓取1394条竞对岗位的平台让我们实时看到竞对在招什么，信号市场走向。</p>
+      <p><b>3. 制定缺口方案：</b>通过招聘、培训、重构填缺口。优先内部方案再外部招聘。在子公司人才转型工作中，这意味着识别谁能转向 AI 增强角色、谁需要培训。</p>
+      <p><b>4. 创造灵活性：</b>做多场景（基础/挑战/保守）而非单一预测。在需求来之前就建管线——我通过在 req 批准前就维护候选人关系来做到这点。</p>
+      <p>当前角色最大的教训：AI 时代的人力规划不只是编制——是能力转型。有时问题不是"需要更多人吗？"而是"我们的人需要变成不同的人吗？"</p>
+    </div>
+    <div class="source-tag">信息源：简历：竞对情报1394条+子公司人才转型+OD方向</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:3, moduleLabel:"HR 专业场景", subGroup:"3.4 AI × HR 前沿", priority:"high", isAI:true,
+    q:"Tell me about a time you implemented a new technology in an HR context.",
+    cn:"讲述一次你在 HR 场景落地新技术的经历。",
+    hint:"⭐差异化亮点——Vibe coding 平台+Token 管理框架。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR · ⭐ 差异化亮点</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>At Tencent, our team had no systematic way to track intern development, and AI tools were being used without governance — costs were unpredictable, and leadership was considering restricting access.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to solve two problems: build an HR tool that actually worked for the team, and create a governance framework for AI usage.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I tackled both. For the tool, I independently designed and built an intern development management platform using Vibe coding — about 4,000 lines covering daily logs, 1on1 records, milestones, and training plans. I integrated Tencent Docs Open API for log syncing and built a WeCom bot with AES encryption + WebSocket for automated message pushing and meeting todo extraction. For governance, I designed a three-tier token allocation model and incorporated costs into the department resource pool. I created an operational manual for daily token-saving practices.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>The platform was deployed and adopted by the team. The token governance model made costs predictable while productive AI usage increased. Both were presented as reference practices. Key learning: technology in HR isn't about tools — it's about building systems where technology amplifies human judgment rather than replacing it.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，团队没有系统追踪实习生培养的方式，AI 工具也无治理——成本不可预测，管理层考虑限制使用。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要解决两个问题：建一个真正好用的 HR 工具，以及创建 AI 使用治理框架。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>两个一起做。工具方面，用 Vibe coding 独立开发实习生培养管理平台——约4000行，覆盖日志、1on1、里程碑、培养计划。接入腾讯文档 Open API 同步日志，建企微机器人（AES加解密+WebSocket）做消息推送和会议待办提取。治理方面，设计三级 token 分配模型，把成本纳入部门资源池，写了日常节省 Token 操作手册。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>平台部署后被团队采纳。Token 治理模型让成本可预测、有效使用反增。两者都被作为参考实践分享。关键学习：HR 中的技术不是关于工具——是关于建系统让技术增强而非替代人的判断。</div>
+    </div>
+    <div class="source-tag">信息源：简历：Vibe coding 4000行 + Token管理+操作手册</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:3, moduleLabel:"HR 专业场景", subGroup:"3.4 AI × HR 前沿", priority:"high", isAI:true,
+    q:"How do you see AI transforming the HR function in the next 5 years?",
+    cn:"你认为 AI 在未来 5 年会如何变革 HR 职能？",
+    hint:"⭐差异化——三层框架：操作层自动化/决策层AI辅助/战略层重定义工作。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · ⭐ 差异化亮点</span></div>
+    <div class="answer-body">
+      <p>I see AI transforming HR across three layers, and I've had hands-on experience with each:</p>
+      <p><b>1. Operational layer — Automation of routine work.</b> Resume screening, scheduling, report generation, policy Q&A will be largely automated. In my current role, I've built platforms that automate intern management workflows — the 'administrative backbone' of HR will shrink, and value will shift to judgment-based work.</p>
+      <p><b>2. Decision-support layer — AI as a thought partner.</b> AI will support decisions like candidate advancement, flight risk detection, training recommendations. But the key word is 'support' — AI surfaces patterns; HR applies context, ethics, and human judgment. My token governance work is a microcosm: the model provides structure, humans make allocation decisions.</p>
+      <p><b>3. Strategic layer — Redesigning work itself.</b> AI doesn't just change how HR does its job; it changes what jobs exist. HR will lead workforce transformation — identifying which roles are augmented, redesigned, or obsolete. This is exactly what I'm working on: subsidiary talent transformation in the AI era.</p>
+      <p>The meta-skill: operating at the intersection of technology, people, and business strategy. That's the intersection I've been building toward — with a Big Data degree, HR experience across four companies, and hands-on AI governance work.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>我认为 AI 从三层变革 HR，我在每层都有实操经验：</p>
+      <p><b>1. 操作层——常规工作自动化。</b>简历筛选、排期、报表生成、政策问答将大规模自动化。我目前在做的实习生管理平台就是在自动化 HR 工作流——HR 的"行政骨架"会缩小，价值转向基于判断的工作。</p>
+      <p><b>2. 决策支持层——AI 作为思维伙伴。</b>AI 支持候选人推进、流失风险、培训推荐等决策。但关键词是"支持"——AI 发现模式，HR 负责情境、伦理和人类判断。我的 token 治理工作就是缩影：模型提供结构，人做分配决策。</p>
+      <p><b>3. 战略层——重新定义工作本身。</b>AI 不只改变 HR 怎么做工作——它改变哪些工作存在。HR 将引领劳动力转型——识别哪些岗位被增强、重构或淘汰。这正是我在做的：AI 时代的子公司人才转型。</p>
+      <p>元技能：在技术、人、业务战略的交叉点运作。这正是我一直构建的——大数据学位+四家公司的 HR 经验+一手 AI 治理实践。</p>
+    </div>
+    <div class="source-tag">信息源：简历：大数据双学位+Token管理+子公司人才转型</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:3, moduleLabel:"HR 专业场景", subGroup:"3.4 AI × HR 前沿", priority:"medium", isAI:true,
+    q:"How would you convince a skeptical leader to adopt AI tools in HR processes?",
+    cn:"你如何说服保守的领导在 HR 流程中采纳 AI 工具？",
+    hint:"不是讲技术多酷——讲痛点解决+风险可控+小步验证。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>Three principles:</p>
+      <p><b>1. Start with their pain point, not your solution.</b> I wouldn't say 'AI is amazing.' I'd say 'Your team spends X hours on [manual task]. I can reduce that.' The AI is the means, not the message. Skeptical leaders don't care about technology — they care about outcomes.</p>
+      <p><b>2. Propose a contained pilot.</b> Try AI on one specific, low-risk task for a limited time. Define success metrics upfront and agree on what 'stop' looks like. This makes the decision feel reversible.</p>
+      <p><b>3. Address risks directly.</b> Acknowledge data privacy, bias, over-reliance. Explain mitigations: approved tools, humans in the loop, bias audits. In my token governance work, I found proactively addressing risks builds more trust than pretending they don't exist.</p>
+      <p>You don't convince skeptics by arguing. You run a small, safe experiment where results do the talking.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>三个原则：</p>
+      <p><b>1. 从他们的痛点出发，不是你的方案。</b>不说"AI 很厉害"，说"你的团队在[手工任务]上花X小时，我能减少。"AI 是手段不是消息。保守的领导不关心技术——关心结果。</p>
+      <p><b>2. 提出受控试点。</b>在一个具体低风险任务上试 AI，限时。提前定成功指标和"叫停"标准。让决策感觉可逆。</p>
+      <p><b>3. 直接回应风险。</b>承认数据隐私、偏见、过度依赖。解释缓解措施：批准工具、人工介入、偏见审计。我在 token 治理中发现，主动回应风险比假装没有更能建立信任。</p>
+      <p>你说服保守派不是靠辩论——是跑一个小而安全的实验，让结果说话。</p>
+    </div>
+    <div class="source-tag">信息源：简历：Token管理实操 · Amazon LP (Earn Trust)</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+
+  // ===== M4: Company Culture =====
+  {
+    module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"high",
+    q:"Why should we hire you?",
+    cn:"为什么应该录用你？",
+    hint:"三段式：HR全模块+大数据能力+AI×HR差异化。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>Three things:</p>
+      <p><b>First, rare breadth of HR experience.</b> HRBP at BGI Genomics (15+ positions, 87% completion, led compensation negotiations), AI developer recruitment at ByteDance (100+ resumes/day, 90% self-sourced), and now OD/workforce planning at Tencent CSIG. I can contribute across the HR spectrum from day one.</p>
+      <p><b>Second, I'm data-driven with a Big Data degree.</b> I don't just use intuition — I pull data, find patterns, and build tools. At Tencent alone, I've built a full-stack intern management platform (4,000 lines), a competitive intelligence platform (1,394 data points), and a token governance framework. My Big Data background means I'm as comfortable with code and queries as with people.</p>
+      <p><b>Third, hands-on AI × HR experience.</b> I've designed token governance, built AI-integrated HR tools, and I'm working on subsidiary talent transformation. Most candidates talk about AI in HR abstractly; I've actually built it, governed it, and thought about its strategic implications. That's the combination I bring.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>三点：</p>
+      <p><b>第一，罕见的 HR 经历广度。</b>华大基因 HRBP（15+岗位、87%完成率、主导薪酬谈判），字节 AI 开发招聘（日均100+简历、90%自主寻访），现在腾讯 CSIG 做 OD/人力规划。第一天就能跨 HR 全模块贡献。</p>
+      <p><b>第二，大数据学位带来的数据驱动能力。</b>不只靠直觉——拉数据、找模式、建工具。光在腾讯就做了全栈实习生管理平台（4000行）、竞对情报平台（1394条数据）、token 治理框架。大数据背景意味着我和人一样懂代码和查询。</p>
+      <p><b>第三，一手 AI×HR 经验。</b>设计过 token 治理、做过 AI 集成 HR 工具、在做子公司人才转型。多数候选人抽象地谈 AI×HR；我真的建过、治理过、思考过战略含义。这就是我带来的组合。</p>
+    </div>
+    <div class="source-tag">信息源：简历综合 · Amazon "Why hire you"</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"high",
+    q:"What are your greatest strengths and weaknesses?",
+    cn:"你最大的优点和缺点是什么？",
+    hint:"优点：适应力+数据驱动+执行力。缺点：信息不全时犹豫——正在改善。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p><b>Strengths:</b></p>
+      <p>My biggest strength is adaptability — moving from a year teaching in rural Altay to high-paced recruitment at ByteDance within weeks. I ramped up to 100+ resumes/day with 90% self-sourcing within three weeks. This comes from a habit of asking questions before making assumptions, and being comfortable not knowing things initially.</p>
+      <p>My second strength is building things, not just doing things. At Tencent, I didn't just 'do' OD work — I built platforms (intern management, competitive intelligence, token governance) that created lasting infrastructure. My Big Data degree gives me the technical foundation; my HR experience gives me the domain context.</p>
+      <p><b>Weakness:</b></p>
+      <p>My biggest weakness is hesitation when facing decisions with incomplete information. My instinct is to gather more data, talk to more people, and 'think it through' before committing. This is good for quality, but can slow things down when speed matters more than certainty.</p>
+      <p>I'm actively working on this: if a decision is reversible, I force myself to decide within 24 hours and adjust based on results. If irreversible, I allow more time but set a hard deadline. My mentor's style — giving me open-ended problems like 'explore token management' — has been exactly the stretch I needed.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p><b>优点：</b></p>
+      <p>最大优点是适应力——从阿勒泰乡村支教到字节高节奏招聘，几周内转换。三周内上手到日均100+简历、90%自主寻访。这来自"先问再假设"的习惯，以及"一开始不懂也没关系"的从容。</p>
+      <p>第二优点是"建东西"而不只是"做东西"。在腾讯我不只是"做" OD——我建了平台（实习生管理、竞对情报、token 治理）创造了持久基础设施。大数据学位给技术基础，HR 经验给领域语境。</p>
+      <p><b>缺点：</b></p>
+      <p>最大缺点是信息不全时犹豫。本能是再多收集数据、多问人、"想透"再定。对质量好，但在速度比确定性更重要时会拖慢。</p>
+      <p>正在改善：可逆决策强制24小时内定、根据结果调整；不可逆的给更多时间但设硬截止。MT 的风格——给"探索 token 管理"这种开放问题——正是我需要的拉伸。</p>
+    </div>
+    <div class="source-tag">信息源：Simplilearn · 简历综合</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"medium",
+    q:"Where do you see yourself in 5 years?",
+    cn:"你5年后想做什么？",
+    hint:"不说具体岗位——说能力方向：AI×HR 交叉领域的 HR 领导者。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>In 5 years, I see myself as an HR leader at the intersection of people, data, and AI — the person leadership turns to when asking: 'How do we restructure for AI-augmented work?' 'How do we evaluate performance when AI is part of the workflow?' 'How do we make sure people grow with technology, not get displaced by it?'</p>
+      <p>I'm building toward this in two ways: horizontally — deepening across every HR function (I've now done recruitment, performance, workforce planning, employee relations, and OD); and vertically — developing AI × HR expertise (token governance, AI-integrated tools, talent transformation).</p>
+      <p>I'm not fixated on a title — I care about the problems I get to solve. But to have the impact I want, I'll need to grow from executing strategy to shaping it. This role feels like the right next step.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>5年后，我想成为在人、数据、AI 交叉点的 HR 领导者——管理层问"怎么为 AI 增强工作重构组织？""AI 参与工作流时怎么评估绩效？""怎么让人随技术成长而非被替代？"时找的那个人。</p>
+      <p>我在两个方向构建：横向——深化每个 HR 职能（招聘、绩效、人力规划、员工关系、OD 都做过了）；纵向——发展 AI×HR 专长（token 治理、AI 集成工具、人才转型）。</p>
+      <p>我不执着于头衔——我关心能解决什么问题。但要有我想的影响力，需要从执行战略成长为塑造战略。这个角色感觉是对的下一步。</p>
+    </div>
+    <div class="source-tag">信息源：Amazon 5年规划 · 简历综合</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"medium",
+    q:"Tell me about a time you had to deliver difficult feedback.",
+    cn:"讲述一次你传递困难反馈的经历。",
+    hint:"向校准会中主导发言的 BP 反馈——用具体观察+提问方式。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR</span></div>
+    <div class="answer-body">
+      <div class="star-section star-s"><span class="star-label">Situation</span>During a calibration session at Tencent, I noticed an HR business partner was dominating the conversation and dismissing others' input. Several people later mentioned feeling unheard.</div>
+      <div class="star-section star-t"><span class="star-label">Task</span>I needed to give this BP feedback honestly but without damaging our relationship or making them defensive.</div>
+      <div class="star-section star-a"><span class="star-label">Action</span>I asked them for a coffee chat — not a formal meeting. I started by affirming their expertise. Then I used a specific observation: 'In yesterday's calibration, I noticed that when [colleague] raised a concern, the conversation moved on quickly. I wonder if there was more to explore.' I used 'I noticed' rather than 'people complained.' I asked 'Were you aware of that dynamic?' — giving them room to reflect rather than feel accused.</div>
+      <div class="star-section star-r"><span class="star-label">Result</span>In the next session, the BP made a conscious effort to invite input. They later told me they appreciated the feedback — 'No one's ever said that to me before, and I needed to hear it.' Lesson: difficult feedback is only difficult if you make it feel like an attack. Specific observation + genuine question + no judgment = feedback people can hear.</div>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯一次校准会中，一位 HRBP 主导了讨论并忽略了他人意见。会后好几个人说感觉没被听到。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>需要诚实但不下伤害关系地给这位 BP 反馈。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>约了个咖啡聊天——不是正式会议。先肯定 ta 的专业。然后用具体观察："昨天校准会上，我注意到[同事]提出一个顾虑时，对话很快就过去了。我在想是不是有更多值得探讨的。"用"我注意到"而非"有人反映"。问"你有注意到那个互动吗？"——给反思空间而非被指控感。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>下次会议中，BP 有意识地邀请他人发言。ta 后来告诉我感谢反馈——"从没人跟我说过这个，我需要听到。"经验：困难反馈只在让它感觉像攻击时才困难。具体观察+真诚提问+不评判=别人能听进去的反馈。</div>
+    </div>
+    <div class="source-tag">信息源：Amazon LP (Earn Trust) · 简历：腾讯校准</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+
+  // ===== M5: Situational =====
+  {
+    module:5, moduleLabel:"情景模拟", subGroup:"假设场景", priority:"medium",
+    q:"A key talent threatens to leave. Walk me through your retention conversation.",
+    cn:"核心人才威胁要离职，请描述你的留任对话。",
+    hint:"先听后说——理解真实原因再给方案。四步法。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>Four steps:</p>
+      <p><b>1. Listen first.</b> Private 1:1. Start with: 'I've heard you might be considering other opportunities. Before I say anything, I want to understand what's going on for you.' Then listen — really listen. People leave for many reasons: compensation, growth, manager conflict, burnout. I can't address it until I know which.</p>
+      <p><b>2. Validate without committing.</b> 'I understand why that would be frustrating.' Validation isn't agreement — it's showing I hear them. No promises yet.</p>
+      <p><b>3. Explore what would change their mind.</b> 'If we could address [core issue], would you want to stay?' If yes, explore specific solutions. Be honest about what's in my power and what isn't.</p>
+      <p><b>4. Follow up fast.</b> Whatever I promise, follow up within 48 hours — even if the answer is 'here's what's possible and what isn't.' Speed signals I take them seriously.</p>
+      <p>Principle: I'd never retain someone with guilt or empty promises. If leaving is right for them, I'd support that — a forced retention that fails in 3 months is worse than a clean departure now.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>四步：</p>
+      <p><b>1. 先听。</b>私下1:1。开头说："听说你在考虑其他机会。我什么先不说，想先理解你的情况。"然后真的听。人离职原因很多：薪酬、成长、manager 冲突、倦怠。不知道哪个就没法解决。</p>
+      <p><b>2. 确认但不承诺。</b>"我理解那会让人沮丧。"确认不是同意——是表明我听到了。还不做承诺。</p>
+      <p><b>3. 探索什么能改变主意。</b>"如果我们能解决[核心问题]，你想留下吗？"如果是，探索具体方案。诚实说明我能做什么、不能做什么。</p>
+      <p><b>4. 快速跟进。</b>承诺什么48小时内跟进——即使答案是"这是可能的，这不是"。速度表明我认真对待。</p>
+      <p>原则：从不用内疚或空承诺留人。如果离开对 ta 是对的，我支持——被迫留任3个月后再走比现在干净离开更糟。</p>
+    </div>
+    <div class="source-tag">信息源：interviews.chat HR 场景题 · 简历：华大基因主导薪酬谈判</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:5, moduleLabel:"情景模拟", subGroup:"假设场景", priority:"medium",
+    q:"You need to reduce headcount by 15%. How do you approach this?",
+    cn:"你需要裁员 15%，你会怎么做？",
+    hint:"结合子公司人才转型经验——裁员是最后手段，但要做就做到干净有尊严。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>Three principles: fairness, transparency, dignity.</p>
+      <p><b>1. Before cutting: explore alternatives.</b> 15% reduction should be last resort. Can we achieve savings through hiring freezes, natural attrition, reduced contractors, role consolidation, or voluntary separation? In my current work on subsidiary talent transformation, I've seen that sometimes the question isn't 'who do we cut?' but 'how do we transform roles so we need fewer?' If AI can augment certain roles, we might reduce through attrition rather than layoffs.</p>
+      <p><b>2. If cuts are necessary: clear, consistent criteria.</b> Objective and defensible — performance records, role redundancy, skills relevance. Applied consistently across teams, decision process documented. The worst thing in a layoff is perceived arbitrariness.</p>
+      <p><b>3. During execution: prioritize dignity.</b> Conversations are personal, not by email. Managers prepared with talking points. Severance, outplacement, references ready before the conversation. Be honest about business reasons.</p>
+      <p><b>4. After: care for survivors.</b> Team meetings to acknowledge difficulty, explain context, address concerns about further cuts. Survivor guilt is real — ignoring it leads to disengagement and further attrition.</p>
+      <p>My philosophy, shaped by current work: if a role can't connect to real business outcomes, keeping it is worse than cutting it — for both the individual and the organization.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>三个原则：公平、透明、尊严。</p>
+      <p><b>1. 裁之前：探索替代方案。</b>15%裁减应是最后手段。能否通过冻结招聘、自然流失、减少外包、岗位合并、自愿离职来实现？在子公司人才转型工作中，我发现有时问题不是"裁谁"——而是"怎么转型岗位让人更少？"如果 AI 能增强某些角色，也许通过自然流失而非裁员。</p>
+      <p><b>2. 必须裁时：清晰一致的标准。</b>客观可辩护——绩效记录、岗位冗余、技能相关性。跨团队一致执行，决策过程留档。裁员最糟的是被认为随意。</p>
+      <p><b>3. 执行中：优先尊严。</b>面对面谈，不发邮件。manager 有谈话要点。离职补偿、再就业支持、推荐信在谈话前就准备好。诚实说明业务原因。</p>
+      <p><b>4. 之后：关怀留下的人。</b>开会承认困难、解释背景、回应进一步裁减的担忧。幸存者内疚是真实的——忽视它会导致倦怠和更多流失。</p>
+      <p>我的理念，受当前工作影响：如果一个岗位挂不到真实业务绩效上，留着比裁掉更糟——对个人和组织都是。</p>
+    </div>
+    <div class="source-tag">信息源：简历：子公司人才转型 · interviews.chat HR Director</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:5, moduleLabel:"情景模拟", subGroup:"假设场景", priority:"low",
+    q:"If you discovered a bias in the promotion process, what would you do?",
+    cn:"如果你发现晋升流程中存在偏见，你会怎么做？",
+    hint:"先确认是系统性偏见还是个案——用数据说话。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>Data-first, system-level approach:</p>
+      <p><b>1. Verify with data.</b> Pull promotion data across 2+ cycles, analyze by demographics. Look for statistically significant patterns, not isolated cases.</p>
+      <p><b>2. Understand root cause.</b> Trace the pipeline: nomination → sponsorship → evaluation → calibration. Where does bias enter? Different root causes require different solutions.</p>
+      <p><b>3. Propose targeted interventions.</b> If nomination problem → broaden criteria. If calibration problem → blind evaluation or diverse panel. If evaluation problem → standardized rubrics + cross-line review (which I've implemented at Tencent).</p>
+      <p><b>4. Track and iterate.</b> Monitor by demographic in subsequent cycles. Report progress to leadership. Bias isn't a one-time fix — it's ongoing monitoring.</p>
+      <p>Politically: I'd frame it as 'I noticed a pattern, let's improve our process' — not 'you're biased.' People respond to 'let's improve' far better than to accusations.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>数据先行、系统层面：</p>
+      <p><b>1. 用数据验证。</b>拉2+周期晋升数据，按人口统计维度分析。找统计显著模式，不是个案。</p>
+      <p><b>2. 理解根因。</b>追溯管线：提名→赞助→评估→校准。偏见从哪进入？不同根因需要不同解法。</p>
+      <p><b>3. 提出针对性干预。</b>提名问题→拓宽标准。校准问题→盲评或多元评审。评估问题→标准化评分+跨条线复核（我在腾讯实施过）。</p>
+      <p><b>4. 追踪迭代。</b>后续周期按维度监控。向管理层汇报进展。偏见不是一次性修复——是持续监控。</p>
+      <p>政治上：定位为"我发现了一个模式，让我们改进"——不是"你有偏见"。人对"让我们改进"比对指控反应好得多。</p>
+    </div>
+    <div class="source-tag">信息源：简历：腾讯跨条线校准 · Resumly 2026 DEI</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+
+  // ===== M6: Closing =====
+  {
+    module:6, moduleLabel:"收尾与反问", subGroup:"反问", priority:"high",
+    q:"Do you have any questions for us?",
+    cn:"你有什么问题想问我们吗？",
+    hint:"至少准备3个高质量反问。展示深度思考。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · 准备 3-5 个反问</span></div>
+    <div class="answer-body">
+      <p>Yes, a few questions:</p>
+      <p><b>1. What does success look like in this role in the first 6 months?</b> — Shows I'm thinking about delivery, not just getting hired.</p>
+      <p><b>2. What's the biggest HR challenge the company is facing right now?</b> — Shows strategic thinking. Their answer tells me what I'd walk into.</p>
+      <p><b>3. How does the company approach AI adoption in HR?</b> — My differentiated question. Signals AI×HR expertise and opens the door to discuss my token governance and platform-building experience.</p>
+      <p><b>4. How is the HR team structured, and how does it partner with the business?</b> — Shows I care about how HR operates.</p>
+      <p><b>5. What opportunities are there for professional development?</b> — Standard but important.</p>
+      <p>I'd pick 2-3 based on interview flow. The goal: ask questions that show I've been listening and thinking, not running through a list.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>是的，几个问题：</p>
+      <p><b>1. 这个岗位前6个月的成功标准是什么？</b>——表明我在想交付，不只是拿到 offer。</p>
+      <p><b>2. 公司目前最大的 HR 挑战是什么？</b>——展示战略思考。答案告诉我即将面对什么。</p>
+      <p><b>3. 公司如何推进 AI 在 HR 中的应用？</b>——我的差异化问题。信号 AI×HR 专长，打开讨论 token 治理和平台建设经验的大门。</p>
+      <p><b>4. HR 团队怎么架构，怎么和业务协作？</b>——表明我关心 HR 怎么运作。</p>
+      <p><b>5. 有什么职业发展机会？</b>——常规但重要。</p>
+      <p>我会根据面试流程选2-3个。目标：问的问题展示我在听、在想，不是在走清单。</p>
+    </div>
+    <div class="source-tag">信息源：UK Interview Guide · Amazon closing</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  },
+  {
+    module:6, moduleLabel:"收尾与反问", subGroup:"收尾", priority:"medium",
+    q:"Is there anything else you'd like to share?",
+    cn:"你还有什么想补充的吗？",
+    hint:"最后加分机会——一句话收束核心价值主张。",
+    answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
+    <div class="answer-body">
+      <p>Yes, one thing:</p>
+      <p>I've been intentional about building a career that combines HR breadth with technical depth. The breadth comes from HRBP work at BGI Genomics, AI developer recruitment at ByteDance, and now OD/workforce planning at Tencent. The depth comes from my Big Data degree and my current focus on AI × HR — I've gone from asking 'how does HR use AI?' to building platforms, designing governance, and working on talent transformation.</p>
+      <p>I'm not looking for just any HR role. I'm looking for a role where I can bring this combination to a team thinking about the future of work. This conversation has reinforced that [Company Name] might be that place.</p>
+      <p>Thank you for your time. I've really enjoyed this conversation.</p>
+    </div>
+    <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>是的，一点：</p>
+      <p>我一直有意识地构建一个结合 HR 广度和技术深度的职业。广度来自华大基因 HRBP、字节 AI 开发招聘、现在腾讯 OD/人力规划。深度来自大数据学位和当前 AI×HR 专注——我已经从"HR 怎么用 AI？"走到了建平台、设计治理、做人才转型。</p>
+      <p>我不是在找任何一个 HR 岗位。我在找一个能把这种组合带到思考未来工作的团队的角色。今天的对话让我更确信[公司名]可能是那个地方。</p>
+      <p>谢谢你们的时间。我非常享受这次对话。</p>
+    </div>
+    <div class="source-tag">信息源：Amazon closing · 简历综合</div>
+    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+  }
+];
+
+// ====== APP LOGIC ======
+let currentModule='all', currentIdx=0, isShuffled=false, shuffleOrder=[], isFlipped=false;
+function getFilteredQuestions(){ if(currentModule==='all') return QUESTIONS; return QUESTIONS.filter(q=>q.module===parseInt(currentModule)); }
+function getDisplayList(){ if(isShuffled) return shuffleOrder.map(i=>QUESTIONS[i]); return getFilteredQuestions(); }
+function buildShuffleOrder(){ const f=getFilteredQuestions(); const idx=f.map(q=>QUESTIONS.indexOf(q)); for(let i=idx.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];} shuffleOrder=idx; }
+function renderCard(){
+  const list=getDisplayList();
+  if(list.length===0){document.getElementById('cardFront').innerHTML='<p style="text-align:center;color:#999;padding:40px;">暂无题目</p>';document.getElementById('cardBack').innerHTML='';return;}
+  if(currentIdx>=list.length) currentIdx=list.length-1;
+  if(currentIdx<0) currentIdx=0;
+  const q=list[currentIdx]; isFlipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  let badges=`<span class="badge badge-module">${q.moduleLabel}</span>`;
+  if(q.isSTAR) badges+=`<span class="badge badge-star">STAR</span>`;
+  if(q.priority==='high') badges+=`<span class="badge badge-priority">高频</span>`;
+  if(q.isAI) badges+=`<span class="badge badge-ai">AI×HR</span>`;
+  document.getElementById('cardFront').innerHTML=`<div class="card-meta">${badges}</div><div class="question-en">${q.q}</div><div class="question-cn">${q.cn}</div><div class="story-hint"><span class="label">素材提示</span>${q.hint}</div><div class="flip-hint">点击卡片查看参考答案 ↓</div>`;
+  document.getElementById('cardBack').innerHTML=q.answer;
+  document.getElementById('progressText').textContent=`${currentIdx+1} / ${list.length}`;
+  document.getElementById('progressFill').style.width=`${((currentIdx+1)/list.length)*100}%`;
+  document.getElementById('prevBtn').disabled=currentIdx===0;
+  document.getElementById('nextBtn').disabled=currentIdx===list.length-1;
+}
+function flipCard(){ isFlipped=!isFlipped; document.getElementById('card').classList.toggle('flipped'); }
+function nextCard(){ const list=getDisplayList(); if(currentIdx<list.length-1){currentIdx++;renderCard();} }
+function prevCard(){ if(currentIdx>0){currentIdx--;renderCard();} }
+function setModule(mod){ currentModule=mod; currentIdx=0; if(isShuffled) buildShuffleOrder(); document.querySelectorAll('.module-nav li').forEach(li=>li.classList.toggle('active',li.dataset.module===mod)); renderCard(); }
+function toggleShuffle(){ isShuffled=!isShuffled; document.getElementById('shuffleBtn').classList.toggle('active'); currentIdx=0; if(isShuffled) buildShuffleOrder(); renderCard(); }
+function updateCounts(){ document.getElementById('countAll').textContent=QUESTIONS.length; for(let m=1;m<=6;m++){const c=QUESTIONS.filter(q=>q.module===m).length;const el=document.getElementById('count'+m);if(el)el.textContent=c;} }
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prevCard();else if(e.key==='ArrowRight')nextCard();else if(e.key===' '){e.preventDefault();flipCard();}});
+document.querySelectorAll('.module-nav li').forEach(li=>li.addEventListener('click',()=>setModule(li.dataset.module)));
+updateCounts(); renderCard();
+</script>
+</body>
+</html>
