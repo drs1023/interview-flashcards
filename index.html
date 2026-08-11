@@ -76,6 +76,12 @@
   .followup-q::before { content:"↳ "; color:#a78bfa; }
   .followup-a { font-size:13px; line-height:1.7; color:var(--text); }
   .followup-cn { font-size:12px; line-height:1.6; color:var(--cn-text); margin-top:2px; }
+  .speak-btn { display:inline-flex; align-items:center; gap:5px; margin-left:8px; padding:3px 10px; border:1px solid var(--accent); background:var(--accent-light); color:var(--accent); border-radius:20px; font-size:12px; font-weight:600; cursor:pointer; transition:all .15s; vertical-align:middle; }
+  .speak-btn:hover { background:var(--accent); color:#fff; }
+  .speak-btn.speaking { background:var(--accent); color:#fff; }
+  .answer-header .speak-btn { margin-left:auto; }
+  .followup-item .speak-btn { float:right; margin-left:6px; margin-top:-2px; }
+  .tts-hint { font-size:11px; color:var(--text-faint); margin-top:6px; }
   .nav-buttons { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
   .nav-btn { padding:10px 24px; border:1px solid var(--border); background:#fff; border-radius:10px; font-size:14px; cursor:pointer; font-weight:500; color:var(--text); transition:all .15s; }
   .nav-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-light); }
@@ -1008,10 +1014,32 @@ function buildShuffleOrder(){ const f=getFilteredQuestions(); const idx=f.map(q=
 function renderFollowups(fus){
   if(!fus || !fus.length) return '';
   let h='<div class="followup-section"><div class="followup-header">可能的追问 · 预设回复</div>';
-  for(const f of fus){ h+='<div class="followup-item"><div class="followup-q">'+f.q+'</div><div class="followup-a">'+f.a+'</div>'+(f.cn?'<div class="followup-cn">'+f.cn+'</div>':'')+'</div>'; }
+  for(const f of fus){ h+='<div class="followup-item"><button class="speak-btn" data-speak="'+escAttr(f.a)+'">🔊</button><div class="followup-q">'+f.q+'</div><div class="followup-a">'+f.a+'</div>'+(f.cn?'<div class="followup-cn">'+f.cn+'</div>':'')+'</div>'; }
   h+='</div>';
   return h;
 }
+
+// ---- Text-to-Speech (英文朗读参考) ----
+let currentUtter=null;
+function speak(text, btn){
+  if(!('speechSynthesis' in window)){ alert('你的浏览器不支持朗读功能，建议用 Chrome 或 Safari 打开。'); return; }
+  if(currentUtter){ window.speechSynthesis.cancel(); }
+  if(btn && btn.classList.contains('speaking')){ btn.classList.remove('speaking'); return; }
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=0.92; u.pitch=1;
+  const voice=window.speechSynthesis.getVoices().find(v=>/en[-_]US/i.test(v.lang)&&/female|samantha|zira|google/i.test(v.name))
+            || window.speechSynthesis.getVoices().find(v=>/^en/i.test(v.lang));
+  if(voice) u.voice=voice;
+  document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));
+  if(btn) btn.classList.add('speaking');
+  u.onend=()=>{ if(btn) btn.classList.remove('speaking'); };
+  u.onerror=()=>{ if(btn) btn.classList.remove('speaking'); };
+  currentUtter=u;
+  window.speechSynthesis.speak(u);
+}
+function escAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+// 预热语音引擎（部分浏览器首次 getVoices 为空，需等 voiceschanged）
+if('speechSynthesis' in window){ window.speechSynthesis.getVoices(); window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices(); }
 
 function renderCard(){
   const list=getDisplayList();
@@ -1026,6 +1054,15 @@ function renderCard(){
   if(q.isAI) badges+=`<span class="badge badge-ai">AI×HR</span>`;
   document.getElementById('cardFront').innerHTML=`<div class="card-meta">${badges}</div><div class="question-en">${q.q}</div><div class="question-cn">${q.cn}</div><div class="story-hint"><span class="label">素材提示</span>${q.hint}</div><div class="flip-hint">点击卡片查看参考答案 ↓</div>`;
   document.getElementById('cardBack').innerHTML=q.answer + renderFollowups(q.followups);
+  // 在答案 header 加「朗读答案」按钮
+  const header=document.querySelector('#cardBack .answer-header');
+  if(header){
+    const sp=document.createElement('button');
+    sp.className='speak-btn';
+    sp.textContent='🔊 朗读答案';
+    sp.setAttribute('data-full','1');
+    header.appendChild(sp);
+  }
   document.getElementById('progressText').textContent=`${currentIdx+1} / ${list.length}`;
   document.getElementById('progressFill').style.width=`${((currentIdx+1)/list.length)*100}%`;
   document.getElementById('prevBtn').disabled=currentIdx===0;
@@ -1038,6 +1075,17 @@ function setModule(mod){ currentModule=mod; currentIdx=0; if(isShuffled) buildSh
 function toggleShuffle(){ isShuffled=!isShuffled; document.getElementById('shuffleBtn').classList.toggle('active'); currentIdx=0; if(isShuffled) buildShuffleOrder(); renderCard(); }
 function updateCounts(){ document.getElementById('countAll').textContent=QUESTIONS.length; for(let m=1;m<=8;m++){const c=QUESTIONS.filter(q=>q.module===m).length;const el=document.getElementById('count'+m);if(el)el.textContent=c;} }
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prevCard();else if(e.key==='ArrowRight')nextCard();else if(e.key===' '){e.preventDefault();flipCard();}});
+// 朗读按钮：事件委托（答案区每次重渲染，统一在容器上监听）
+document.getElementById('cardBack').addEventListener('click',e=>{
+  const btn=e.target.closest('.speak-btn');
+  if(!btn) return;
+  if(btn.hasAttribute('data-full')){
+    const body=document.querySelector('#cardBack .answer-body');
+    speak(body?body.innerText:'', btn);
+  } else if(btn.dataset.speak){
+    speak(btn.dataset.speak, btn);
+  }
+});
 document.querySelectorAll('.module-nav li').forEach(li=>li.addEventListener('click',()=>setModule(li.dataset.module)));
 updateCounts(); renderCard();
 </script>
