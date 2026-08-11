@@ -150,40 +150,35 @@ const QUESTIONS = [
     module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"high",
     q:"Tell me about yourself.",
     cn:"请做自我介绍。",
-    hint:"Present-Past-Future 结构，90秒。强调四段经历的递进逻辑 + AI×HR 差异化 + 数据能力（大数据双学位）。",
-    followups:[{q:"You mentioned AI × HR — what does that actually look like day to day?", a:"Mostly small tools: a dashboard here, an automation there. Like the intern platform I built — it saves my team hours every week.", cn:"大多是做小工具——这儿一个看板、那儿一个自动化。比如我搭的实习生平台，每周给团队省好几个小时。"}, {q:"Your background is business, not CS. How do you keep up with the tech?", a:"I learn by building. That 4,000-line platform was my crash course — I'd rather ship something small than just read about it.", cn:"我靠做中学。那4000行的平台就是我的速成班——比起只读，我更愿意做点小的出来。"}],
+    hint:"Present-Past-Future 结构，90秒。忠实原话：本硕东北大学工商管理 + 多段HR实习（HRBP/招聘/人才发展/评估）+ 学生工作 + 深耕HR。",
+    followups:[{q:"Which part of HRBP work excites you most?", a:"Being the person a business leader trusts with their people problems. Recruiting is fun, but the real pull is sitting close to the business.", cn:"成为业务 leader 在人的问题上信赖的人。招聘好玩，但真正吸引我的是贴近业务。"}, {q:"What did the student roles teach you that internships didn't?", a:"How to actually move a team — running something with people, not just for myself. You learn to push others, not only yourself.", cn:"怎么真正推动一个团队——和别人一起把事跑起来，不只是为自己。你会学到怎么推别人，而不只是推自己。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-        <div class="answer-body"><p>Hi, I'm Xiaoyue Du, finishing my MBA at Northeastern University — same place as my undergrad in Business Administration with a Big Data minor. So I sit on both sides: the people side of HR and the numbers.</p>
-<p>Right now I'm an AI × HR intern at Tencent CSIG, on OD and workforce planning. I've built a few things: an intern platform (~4,000 lines, wired to the Tencent Docs API and a WeCom bot), a competitive-intel tool that pulled 1,394 job posts from 5 rivals, and the automation plan for a talent-eval workbench where I found 6 data gaps.</p>
-<p>Before that: recruitment at ByteDance's Feishu team (AI dev roles, ~100 resumes/day, 90% sourced myself, 15% to interview), a year teaching in Altay (led 26 people, 527 students), and HRBP at BGI (15+ roles closed, 87% fill rate). Looking ahead, I want to be where AI meets HR — the next HR leaders need to be as at ease with data as with people.</p></div>
+        <div class="answer-body"><p>Hi, I'm Du Xiaoyue. I did both my bachelor's and master's in Business Administration at Northeastern University.</p>
+<p>I've had a few HR internships across different areas — HRBP, recruiting, talent development, and assessment. That range is what I like: seeing how the pieces fit, not just one corner of HR.</p>
+<p>At school I also took on several student leadership roles, which taught me how to run things with a team. Going forward, I want to keep growing in HR — deeper, not just wider.</p></div>
         <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <p>我是杜晓月，在东北大学读工商管理硕士——本科也是这儿，工商管理+大数据双学位，所以同时站在 HR 的人和数据的两边。</p>
-      <p>现在在腾讯 CSIG 做 AI×HR 实习生，方向 OD 和人力规划。我做过几个东西：实习生培养平台（约4000行，接腾讯文档 API 和企微机器人）、竞对情报工具（抓5家对手1394条岗位）、人才评估工作台自动化方案（找出6处数据断层）。</p>
-      <p>之前：字节飞书招聘（AI 研发岗，日均100+简历，自主寻访90%，约面15%）、阿勒泰支教一年（带26人、覆盖527名学生）、华大基因 HRBP（完成15+岗位，87%完成率）。未来想待在 AI×HR 的交叉点——下一代 HR 领导者要像懂人一样懂数据。</p></div>
-    <div class="source-tag">信息源：Simplilearn HR 面试指南 · Present-Past-Future 结构 · 简历数据</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>我叫杜晓月，本硕都就读于东北大学工商管理专业。</p>
+      <p>过往有过多段人力相关的实习，分别涉及到 HRBP、招聘、人才发展、评估这些模块。</p>
+      <p>同时在学校也兼任多项学生工作。未来期望能继续在人力方向深耕。</p></div>`
   },
   {
     module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"high",
     q:"Walk me through your resume.",
     cn:"请过一遍你的简历。",
     hint:"按时间线讲，每段经历提炼一个关键词。不要流水账。",
-    followups:[{q:"Which chapter was your favorite, and why?", a:"Chapter 4 — Tencent. That's where HR stopped being admin and started being design.", cn:"第四章——腾讯。在那 HR 不再是行政，而成了设计。"}, {q:"If I called your ByteDance manager, what would they say about you?", a:"Probably that I'm fast and a bit restless — I like to move, and I'd rather ask for forgiveness than permission.", cn:"大概会说我快、有点坐不住——我喜欢推进，宁可先斩后奏。"}],
+    followups:[{q:"Which chapter was your favorite, and why?", a:"Chapter 2 — BGI. That's where I first sat with a business as their HRBP, not just an HR admin.", cn:"第二章——华大。那是我第一次作为 HRBP 陪业务坐下来，而不只是 HR 行政。"}, {q:"If I called your ByteDance manager, what would they say about you?", a:"Probably that I'm fast and a bit restless — I like to move, and I'd rather ask for forgiveness than permission.", cn:"大概会说我快、有点坐不住——我喜欢推进，宁可先斩后奏。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>Sure. I'll walk you through it in four chapters.</p>
-<p><b>Chapter 1 — Foundation:</b> At Northeastern University I studied Business Administration with a Big Data minor — GPA 3.74, top 15%. I was pretty deep in student leadership, president of both the grad and undergrad student councils. And during my year teaching in Altay as a volunteer, I led a 26-person team, reached 527 students, and won a national bronze award for the work.</p>
-<p><b>Chapter 2 — HRBP grounding:</b> At BGI Genomics I did the full HRBP range — closed 15+ roles at 87%, led campus-compensation talks, and built dashboards tracking things like turnover and cost.</p>
-<p><b>Chapter 3 — Recruitment at scale:</b> At ByteDance's Feishu team I hired for AI developer roles — 100+ resumes a day, 90% sourced myself, 15% to interview. I also wrote enablement docs that cut new-hire ramp-up time by 40%.</p>
-<p><b>Chapter 4 — Strategic HR + AI:</b> Now at Tencent CSIG I've moved into OD and workforce planning. I built a full-stack intern platform, a competitive-intel tool, and a token governance framework. This is where my AI × HR interest really clicked.</p></div>
-    <div class="cn-translation"><span class="cn-label">中文对照</span>
+        <div class="answer-body"><p>Sure. I'll walk you through it in four chapters.</p>
+<p><b>Chapter 1 — Foundation:</b> At Northeastern University I studied Business Administration with a Big Data minor — GPA 3.74, top 15%. I was deep in student leadership, president of both the grad and undergrad student councils. And my year teaching in Altay as a volunteer, I led a 26-person team, reached 527 students, and won a national bronze award.</p>
+<p><b>Chapter 2 — HRBP grounding:</b> At BGI Genomics I did the full HRBP range — closed 15+ roles at 87%, led campus-compensation talks, and built dashboards tracking turnover and cost. That's where I learned HR means sitting with the business, not just running programs.</p>
+<p><b>Chapter 3 — Recruitment at scale:</b> At ByteDance's Feishu team I hired for AI developer roles — 100+ resumes a day, 90% sourced myself, 15% to interview. I also wrote enablement docs that cut new-hire ramp-up by 40%.</p>
+<p><b>Chapter 4 — HRBP who uses tools well:</b> Now at Tencent CSIG I work in OD and workforce planning. I built an intern platform, a competitive-intel tool, and a token governance framework — but the point wasn't the tech. It was making HR run smoothly so I can spend my time on the business: understanding what teams need and helping leaders act on it.</p></div>
+        <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p>好的，四个篇章：</p>
-      <p><b>第一章——基础：</b>在东北大学读工商管理+大数据，GPA 3.74，专业前15%。深度参与学生工作，担任过研究生会和学生会执行主席。在阿勒泰支教一年，作为支教团团长带领26人团队覆盖527名学生，获全国志愿服务大赛铜奖。</p>
-      <p><b>第二章——HRBP 打底：</b>在华大基因做 HRBP 全模块实习，完成15+岗位入职（87%完成率），主导校招薪酬谈判，搭建人事数据看板。</p>
-      <p><b>第三章——规模化招聘：</b>在字节飞书做 AI 开发方向招聘，日均处理100+简历，自主寻访90%，约面转化15%。输出的招聘赋能文档让新人上手效率提升40%。</p>
-      <p><b>第四章——战略 HR + AI：</b>现在腾讯 CSIG 做 OD 和人力规划，独立开发了实习生管理平台、竞对情报平台、token 管理框架。这是我 AI×HR 热情真正爆发的地方。</p>
-    </div>
-    <div class="source-tag">信息源：Amazon "Walk me through your resume" 结构 · 简历数据</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p><b>第一章——基础：</b>在东北大学读工商管理+大数据，GPA 3.74，专业前15%。深度参与学生工作，担任过研究生会和学生会执行主席。阿勒泰支教一年，作为支教团团长带领26人团队覆盖527名学生，获全国志愿服务大赛铜奖。</p>
+      <p><b>第二章——HRBP 打底：</b>在华大基因做 HRBP 全模块，完成15+岗位（87%完成率），主导校招薪酬谈判，搭建人事数据看板。在那我学到 HR 是陪业务坐在一起，而不只是跑项目。</p>
+      <p><b>第三章——规模化招聘：</b>在字节飞书做 AI 开发方向招聘，日均100+简历，自主寻访90%，约面转化15%。招聘赋能文档让新人上手效率提升40%。</p>
+      <p><b>第四章——会用工具的 HRBP：</b>现在腾讯 CSIG 做 OD 和人力规划。我建了实习生平台、竞对情报工具、token 治理框架——但重点不是技术，是让 HR 跑顺，好把时间花在业务上：理解团队要什么、帮 leader 落地。</p></div>`
   },
   {
     module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"high",
@@ -192,34 +187,28 @@ const QUESTIONS = [
     hint:"从支教切入——意识到「理解人、设计让人发挥的系统」才是最有力的事。",
     followups:[{q:"But HR can be slow and political. Doesn't that bug you?", a:"Sometimes. But I see the politics as a system to design around — that's the puzzle I actually like.", cn:"偶尔会。但我把那些人情世故看作可以设计的系统——那正是我喜欢的谜题。"}, {q:"What if you'd never gone to Altay — would you still be in HR?", a:"Honestly, maybe not. That year is what turned 'people are interesting' into 'this is the work.'", cn:"说实话，可能不会。是那一年把'人对我很有趣'变成了'这就是我要做的工作'。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>It started back when I was teaching in Altay, Xinjiang. I was teaching math and English to 527 kids across 4 grades, and I realized the most valuable thing I did wasn't deliver the lesson — it was figuring out what drove each student, why some thrived and others struggled, and setting up an environment where everyone could do their best. Leading that 26-person team showed me that "people systems" — the structures that help people do great work — are what I care about most.</p>
-<p>When I came back, HR felt like the professional version of that same instinct. My HRBP stint at BGI confirmed it — I loved sitting at the crossroads of business strategy and people. At ByteDance, recruitment taught me speed and how to let data drive decisions. And now at Tencent I'm exploring the front edge of AI in HR, which I think is the most exciting place to be in this field.</p></div>
-    <div class="cn-translation"><span class="cn-label">中文对照</span>
+        <div class="answer-body"><p>It started back when I was teaching in Altay, Xinjiang. I was teaching math and English to 527 kids across 4 grades, and I realized the most valuable thing I did wasn't deliver the lesson — it was figuring out what drove each student, why some thrived and others struggled, and setting up an environment where everyone could do their best. Leading that 26-person team showed me that "people systems" — the structures that help people do great work — are what I care about most.</p>
+<p>When I came back, HR felt like the professional version of that same instinct. My HRBP stint at BGI confirmed it — I loved sitting at the crossroads of business and people, being the one a manager turns to when the team isn't working. At ByteDance, recruitment taught me speed and how to let data drive decisions. And now at Tencent I'm learning how an HRBP can use AI and tools to serve the business better — which I think is where HR is heading.</p></div>
+        <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p>我对 HR 的兴趣始于阿勒泰支教。我当时教4个年级527名学生的数学和英语，意识到最有影响力的事不是传授知识——而是理解每个人的动力，找出为什么有人出色有人挣扎，设计一个让每个人都能发挥的环境。我带领26人的支教团，这段经历让我意识到「人的系统」——帮助人做到最好的结构——才是我的热情所在。</p>
-      <p>回来后，我把 HR 看作这个直觉的职业版本。华大基因 HRBP 实习印证了这一点——我热爱站在业务战略和人的交叉点。字节招聘教会了我速度和数据驱动。现在腾讯让我探索 AI×HR 的前沿。</p>
-    </div>
-    <div class="source-tag">信息源：个人经历提炼 · UK Interview Guide</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>回来后，我把 HR 看作这个直觉的职业版本。华大基因 HRBP 实习印证了这一点——我热爱站在业务和人的交叉点，成为 manager 在团队出问题时找的那个人。字节招聘教会了我速度和数据驱动。现在腾讯让我学到 HRBP 怎么用 AI 和工具更好地服务业务——我认为这正是 HR 的方向。</p></div>`
   },
   {
     module:1, moduleLabel:"自我介绍", subGroup:"破冰", priority:"medium",
     q:"Why are you interested in our company?",
     cn:"为什么选择我们公司？",
     hint:"模板——面试前针对具体公司填入业务亮点、HR团队定位、AI布局。",
-    followups:[{q:"What would you want to achieve in your first 90 days?", a:"First, listen. Then find one slow process and fix it — something small I can ship fast.", cn:"先听。再找一个慢的流程修掉——挑个能快速交付的小事。"}, {q:"How do you know you'd fit our culture?", a:"I don't fully yet — that's why I'm asking you questions too. But I thrive in places that move.", cn:"现在还不敢说——所以我也反问你。但我最适合往前冲的环境。"}],
+    followups:[{q:"What would you want to achieve in your first 90 days?", a:"First, listen to my business leaders. Then find one slow people-process and fix it — something small I can ship fast.", cn:"先听我的业务 leader。再找一个慢的流程修掉——挑个能快速交付的小事。"}, {q:"How do you know you'd fit our culture?", a:"I don't fully yet — that's why I'm asking you questions too. But I thrive in places where HR sits close to the business.", cn:"现在还不敢说——所以我也反问你。但我最适合 HR 贴近业务的环境。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案（模板，需面试前定制）</span></div>
-    <div class="answer-body"><p>Three reasons:</p>
-<p>First, <b>where the business is headed</b>. [填入：该公司近期业务亮点]. I'm drawn to companies that are growing fast — that's where HR can have the biggest strategic impact.</p>
-<p>Second, <b>how your HR team works</b>. [填入：HR 团队特点]. That fits the kind of place where I can both contribute and grow.</p>
-<p>Third, <b>your take on AI</b>. [填入：该公司 AI 布局]. Having built token governance and AI-integrated HR tools at Tencent, I'm really interested in companies that are thinking seriously about how AI changes the way we work.</p></div>
-    <div class="cn-translation"><span class="cn-label">中文对照</span>
+        <div class="answer-body"><p>Three reasons:</p>
+<p>First, <b>where the business is headed</b>. [填入：该公司近期业务亮点]. I'm drawn to companies growing fast — that's where an HRBP can have the biggest impact on the business.</p>
+<p>Second, <b>how HRBP partners with the business here</b>. [填入：HRBP 如何对接业务线 / 团队特点]. I want a seat close to the business, not a back-office role.</p>
+<p>Third, <b>how you use AI to help people</b>. [填入：该公司 AI 布局]. Having built tools like an intern platform and token governance at Tencent, I care about AI that makes HR more efficient at supporting people — not AI for its own sake.</p></div>
+        <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p>三个原因：</p>
-      <p>第一，<b>业务发展势头</b>。[填入具体亮点]。我倾向于快速增长的公司——那里 HR 的战略价值最大。</p>
-      <p>第二，<b>HR 团队运作方式</b>。[填入团队特点]。这与我能贡献和成长的环境匹配。</p>
-      <p>第三，<b>AI 布局</b>。[填入 AI 策略]。在腾讯做过 AI token 治理和 AI 集成 HR 工具后，我非常关注认真思考 AI 如何变革工作的公司。</p>
-    </div>
-    <div class="source-tag">信息源：Amazon "Why Amazon" 范例 · UK Interview Guide</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>第一，<b>业务发展势头</b>。[填入具体亮点]。我倾向快速增长的公司——那里 HRBP 对业务的影响力最大。</p>
+      <p>第二，<b>HRBP 在这里怎么对接业务</b>。[填入 HRBP 对接业务线 / 团队特点]。我要的是贴近业务的位子，不是后台角色。</p>
+      <p>第三，<b>你们怎么用 AI 帮人</b>。[填入 AI 策略]。在腾讯做过实习生平台、token 治理这类工具后，我在意的是让 HR 更高效支持人的 AI——而不是为 AI 而 AI。</p></div>`
   },
 
   // ===== M2: Behavioral =====
@@ -579,15 +568,13 @@ const QUESTIONS = [
     <div class="answer-body"><div class="star-section star-s"><span class="star-label">Situation</span>At ByteDance's Feishu team I was hiring for large-model roles — a cut-throat market where the same candidates were chased by several companies. The bar was sky-high, and I had to really understand AI work to judge fit.</div>
 <div class="star-section star-t"><span class="star-label">Task</span>I needed to fill these roles with quality people while keeping my 90% self-source rate and lifting conversion off 15%.</div>
 <div class="star-section star-a"><span class="star-label">Action</span>I took a "become a domain expert" approach. I dug into the actual work — large-model dev, compliance, data security — to learn what the job really needed beyond the JD. I mapped which tech stacks mattered for which sub-roles. I built structured candidate cards that flagged tech-stack match, highlights, and risk — which shortened manager review time. I also wrote a recruitment enablement doc — "The Big Model Recruitment Guide for HR" — with talk tracks, stack-matching logic, and comp points, and shared it with the team.</div>
-<div class="star-section star-r"><span class="star-label">Result</span>The doc cut new-hire ramp-up by 40%, and my conversion went from 15% to about 20%. The team adopted my candidate-card format and info-talk framework as standard. The big lesson: in technical recruiting, what sets you apart isn't volume — it's how deep you get. The more I understood the tech, the better I matched people, and the more hiring managers trusted my calls.</div></div>
+<div class="star-section star-r"><span class="star-label">Result</span>The doc cut new-hire ramp-up by 40%, and my conversion went from 15% to about 20%. The team adopted my candidate-card format and info-talk framework as standard. The big lesson: in technical recruiting, what sets you apart isn't volume — it's how deep you get. And as an HRBP, recruiting is my fastest way to learn a business: I have to understand what teams actually need before I can serve them.</div></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
       <div class="star-section star-s"><span class="star-label">情境</span>在字节飞书招大模型开发岗——市场竞争极激烈，技术门槛极高，需要深入理解 AI 开发场景才能评估匹配度。</div>
       <div class="star-section star-t"><span class="star-label">任务</span>需要保质保量填补岗位，同时维持90%自主寻访率、改善15%的约面转化。</div>
       <div class="star-section star-a"><span class="star-label">行动</span>采取"成为领域专家"策略。深入技术场景——大模型开发、合规、数据安全——理解 JD 之外的真实需求。梳理了哪些技术栈对应哪些细分岗位。创建结构化"候选人卡片"（技术栈匹配、亮点、风险标记），缩短用人方审核时间。还写了《面向HR的大模型招聘指南》——涵盖业务沟通话术、技术栈匹配逻辑、薪酬谈判要点——分享给团队。</div>
-      <div class="star-section star-r"><span class="star-label">结果</span>赋能文档让新人效率提升40%。转化率从15%提升到约20%。团队把候选人卡片格式和 info talk 框架采纳为标准做法。关键学习：技术招聘的差异化不在寻访量——而在领域深度。越懂技术，越能匹配候选人，用人方越信任推荐。</div>
-    </div>
-    <div class="source-tag">信息源：简历：90%自主寻访/15%转化/新人效率提升40%/大模型招聘指南</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <div class="star-section star-r"><span class="star-label">结果</span>赋能文档让新人效率提升40%。转化率从15%提升到约20%。团队把候选人卡片格式和 info talk 框架采纳为标准做法。关键学习：技术招聘的差异化不在寻访量——而在领域深度。作为 HRBP，招聘是我最快懂业务的方式：得先理解团队真正要什么，才能服务好他们。</div>
+    </div>`
   },
   {
     module:3, moduleLabel:"HR 专业场景", subGroup:"3.2 绩效与员工关系", priority:"high", isSTAR:true,
@@ -599,15 +586,13 @@ const QUESTIONS = [
     <div class="answer-body"><div class="star-section star-s"><span class="star-label">Situation</span>At BGI Genomics a manager was giving an employee negative feedback in public — team meetings, group chats. The employee checked out and started missing deadlines, which the manager then used as proof of poor performance. A downward spiral.</div>
 <div class="star-section star-t"><span class="star-label">Task</span>As HRBP I had to step in — support the employee and coach the manager — without taking sides.</div>
 <div class="star-section star-a"><span class="star-label">Action</span>I met the employee first, in private, to listen and acknowledge. I also helped them see their slip in performance was making things worse. Then I met the manager, also privately, with a coaching angle: "How do you think your feedback lands?" He hadn't realized public criticism demotivates rather than drives. I set one simple rule: corrective feedback is always private; positive feedback can be public. I also suggested bi-weekly 1-on-1s.</div>
-<div class="star-section star-r"><span class="star-label">Result</span>Within a month the dynamic turned around. The employee's performance recovered, and the manager started using private channels for corrections. Both thanked me separately. Lesson: in employee relations you rarely need to "pick a side" — you help both see the other's view and give them better tools to talk.</div></div>
+<div class="star-section star-r"><span class="star-label">Result</span>Within a month the dynamic turned around. The employee's performance recovered, and the manager started using private channels for corrections. Both thanked me separately. Lesson: in employee relations you rarely need to "pick a side" — you help both see the other's view and give them better tools to talk. This is exactly the HRBP work I want: close to the people, solving the human side of the business.</div></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
       <div class="star-section star-s"><span class="star-label">情境</span>在华大基因，一个 manager 在公开场合（团队会、群聊）给员工负面反馈。员工变得消沉、开始错过截止日期，manager 又拿这个当绩效差的证据。恶性循环。</div>
       <div class="star-section star-t"><span class="star-label">任务</span>作为 HRBP，需要介入——支持员工+辅导 manager——不站队。</div>
       <div class="star-section star-a"><span class="star-label">行动</span>先私下见员工，倾听和确认感受，也帮 ta 看到绩效下滑在让情况更糟。然后私下见 manager，用辅导方式："你觉得你的反馈被怎么接收的？"manager 没意识到公开批评是打击而非激励。我引入一条简单规则：纠正性反馈永远私下，表扬可以公开。还建议双周1:1。</div>
-      <div class="star-section star-r"><span class="star-label">结果</span>一个月内互动改善。员工绩效恢复，manager 开始用私下渠道给纠正反馈。两人分别感谢我。经验：员工关系中很少需要"站队"——需要的是帮双方看到对方视角，给更好的互动工具。</div>
-    </div>
-    <div class="source-tag">信息源：interviews.chat HR Specialist · 简历：华大基因 HRBP</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <div class="star-section star-r"><span class="star-label">结果</span>一个月内互动改善。员工绩效恢复，manager 开始用私下渠道给纠正反馈。两人分别感谢我。经验：员工关系中很少需要"站队"——需要的是帮双方看到对方视角，给更好的互动工具。这正是我想做的 HRBP 工作：贴近人，解决业务里人的那一面。</div>
+    </div>`
   },
   {
     module:3, moduleLabel:"HR 专业场景", subGroup:"3.3 人力规划与组织发展", priority:"medium",
@@ -621,59 +606,51 @@ const QUESTIONS = [
 <p><b>2. Map current capability + the competitive picture:</b> I take stock of skills, performance, and potential. I also bring in competitive intel — my platform that scraped 1,394 competitor posts shows us in real time what rivals are hiring for, which signals where the market's heading.</p>
 <p><b>3. Build the gap plan:</b> Close gaps through hiring, upskilling, and restructuring. I lean on internal fixes before external hiring. In the subsidiary talent transformation work I'm doing, that means spotting who can move into AI-augmented roles versus who needs upskilling.</p>
 <p><b>4. Build in flexibility:</b> Plan scenarios — base, stretch, conservative — not one forecast. And build the pipeline before you need it; I do that by keeping warm candidate relationships even before the reqs are approved.</p>
-<p>The biggest lesson from my current role: workforce planning in the AI era isn't just about headcount — it's about transforming capability. Sometimes the real question isn't "do we need more people?" but "do our current people need to become different people?"</p></div>
+<p>The biggest lesson from my HRBP-facing work: workforce planning in the AI era isn't just about headcount — it's about transforming capability to serve the business. Sometimes the real question isn't "do we need more people?" but "do our current people need to become different people?"</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p>分四步，基于我在腾讯的 OD 实操：</p>
       <p><b>1. 理解业务轨迹：</b>和业务负责人一起梳理增长目标、新能力需求、时间线。计划必须由业务驱动，不是 HR 假设。</p>
       <p><b>2. 盘点现有能力+竞对格局：</b>盘点现有技能、绩效、潜力。还带入竞对情报——我开发的抓取1394条竞对岗位的平台让我们实时看到竞对在招什么，信号市场走向。</p>
       <p><b>3. 制定缺口方案：</b>通过招聘、培训、重构填缺口。优先内部方案再外部招聘。在子公司人才转型工作中，这意味着识别谁能转向 AI 增强角色、谁需要培训。</p>
       <p><b>4. 创造灵活性：</b>做多场景（基础/挑战/保守）而非单一预测。在需求来之前就建管线——我通过在 req 批准前就维护候选人关系来做到这点。</p>
-      <p>当前角色最大的教训：AI 时代的人力规划不只是编制——是能力转型。有时问题不是"需要更多人吗？"而是"我们的人需要变成不同的人吗？"</p>
-    </div>
-    <div class="source-tag">信息源：简历：竞对情报1394条+子公司人才转型+OD方向</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>来自 HRBP 视角工作的最大教训：AI 时代的人力规划不只是编制——是能力转型以服务业务。有时问题不是"需要更多人吗？"而是"我们的人需要变成不同的人吗？"</p></div>`
   },
   {
     module:3, moduleLabel:"HR 专业场景", subGroup:"3.4 AI × HR 前沿", priority:"high", isAI:true,
     q:"Tell me about a time you implemented a new technology in an HR context.",
     cn:"讲述一次你在 HR 场景落地新技术的经历。",
     hint:"⭐差异化亮点——Vibe coding 平台+Token 管理框架。",
-    followups:[{q:"What was the biggest resistance you faced deploying the platform?", a:"People were used to their scattered docs and chats. I didn't force adoption — I showed them how the platform saved them time.", cn:"大家习惯了散落的文档和聊天。我不强迫用——我展示平台怎么帮他们省时间。"}, {q:"How do you maintain tools you built on your own after you leave the role?", a:"I document everything and hand off to a teammate. I also build in a way that's readable — no clever tricks, just clean code.", cn:"我写全文档、交接给同事。代码也写得可读——不玩花的，就干净。"}],
-    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR · ⭐ 差异化亮点</span></div>
-    <div class="answer-body"><div class="star-section star-s"><span class="star-label">Situation</span>At Tencent our team had no system to track intern development, and AI tools were used with no governance — costs were all over the place, and leadership was eyeing a lock-down.</div>
-<div class="star-section star-t"><span class="star-label">Task</span>I had to fix two things: build an HR tool that actually worked for the team, and set up a governance framework for AI use.</div>
-<div class="star-section star-a"><span class="star-label">Action</span>I tackled both. For the tool, I designed and built an intern development platform on my own with Vibe coding — about 4,000 lines covering daily logs, 1-on-1s, milestones, and training plans. I wired in the Tencent Docs API for log sync and built a WeCom bot with AES encryption plus WebSocket for automated message push and meeting to-do extraction. For governance, I designed a three-tier token model and folded cost into the department resource pool, plus an ops manual for daily token-saving.</div>
-<div class="star-section star-r"><span class="star-label">Result</span>The platform shipped and the team adopted it. The token model made costs predictable while useful AI use went up. Both got shared as reference practices. Key lesson: tech in HR isn't about the tools — it's about building systems where tech sharpens human judgment instead of replacing it.</div></div>
+    followups:[{q:"What was the biggest resistance you faced deploying the platform?", a:"People were used to scattered docs and chats. I didn't force it — I showed how it freed them to spend time with their business leaders.", cn:"大家习惯了散落的文档和聊天。我不强迫——我展示它怎么帮他们把时间花在业务 leader 上。"}, {q:"How do you maintain tools you built after you leave the role?", a:"I document everything and hand off to a teammate. An HRBP's value is the habit, not the heroics.", cn:"我写全文档、交接给同事。HRBP 的价值是习惯，不是个人英雄主义。"}],
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · STAR · HRBP 视角</span></div>
+    <div class="answer-body"><div class="star-section star-s"><span class="star-label">Situation</span>At Tencent our HRBP team had no system to track intern development, and AI tools were used with no governance — costs were all over the place, and leadership was eyeing a lock-down that would've hurt my teammates' daily work.</div>
+<div class="star-section star-t"><span class="star-label">Task</span>As the HRBP-supporting member of the team, I had to fix two things: build a tool that freed us from scattered docs, and set up governance so people could keep using AI without fear.</div>
+<div class="star-section star-a"><span class="star-label">Action</span>I built an intern development platform on my own (~4,000 lines) covering daily logs, 1-on-1s, milestones, and training plans — wired to the Tencent Docs API and a WeCom bot, so the team stopped losing track of people. For governance, I designed a three-tier token model and folded cost into the department resource pool, plus an ops manual for daily token-saving.</div>
+<div class="star-section star-r"><span class="star-label">Result</span>The platform shipped and the team adopted it. Token governance made costs predictable while useful AI use went up. My takeaway as an HRBP: the tech was never the point — it was a lever. The real win was that my HRBP teammates spent less time on admin and more time sitting with their business leaders. Tools should give HRBP more face-time with the business, not less.</div></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，团队没有系统追踪实习生培养的方式，AI 工具也无治理——成本不可预测，管理层考虑限制使用。</div>
-      <div class="star-section star-t"><span class="star-label">任务</span>需要解决两个问题：建一个真正好用的 HR 工具，以及创建 AI 使用治理框架。</div>
-      <div class="star-section star-a"><span class="star-label">行动</span>两个一起做。工具方面，用 Vibe coding 独立开发实习生培养管理平台——约4000行，覆盖日志、1on1、里程碑、培养计划。接入腾讯文档 Open API 同步日志，建企微机器人（AES加解密+WebSocket）做消息推送和会议待办提取。治理方面，设计三级 token 分配模型，把成本纳入部门资源池，写了日常节省 Token 操作手册。</div>
-      <div class="star-section star-r"><span class="star-label">结果</span>平台部署后被团队采纳。Token 治理模型让成本可预测、有效使用反增。两者都被作为参考实践分享。关键学习：HR 中的技术不是关于工具——是关于建系统让技术增强而非替代人的判断。</div>
-    </div>
-    <div class="source-tag">信息源：简历：Vibe coding 4000行 + Token管理+操作手册</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <div class="star-section star-s"><span class="star-label">情境</span>在腾讯，我们的 HRBP 团队没有系统追踪实习生培养，AI 工具也无治理——成本不可预测，管理层考虑限制使用，这会伤到同事的日常。</div>
+      <div class="star-section star-t"><span class="star-label">任务</span>作为团队里的 HRBP 支持成员，需要解决两个问题：建一个让团队摆脱散落文档的工具，以及创建 AI 使用治理让同事能放心用。</div>
+      <div class="star-section star-a"><span class="star-label">行动</span>独立开发了实习生培养平台（约4000行），覆盖日志、1on1、里程碑、培养计划，接入腾讯文档 API 和企微机器人，团队不再丢人。治理方面，设计三级 token 模型，成本纳入部门资源池，写了日常节省 Token 操作手册。</div>
+      <div class="star-section star-r"><span class="star-label">结果</span>平台部署后被团队采纳。Token 治理让成本可预测、有效使用反增。作为 HRBP 我的体会：技术从来不是目的——它是杠杆。真正的赢是同事花在行政上的时间少了，陪业务 leader 的时间多了。工具应该给 HRBP 更多面对业务的时间，而不是更少。</div>
+    </div>`
   },
   {
     module:3, moduleLabel:"HR 专业场景", subGroup:"3.4 AI × HR 前沿", priority:"high", isAI:true,
     q:"How do you see AI transforming the HR function in the next 5 years?",
     cn:"你认为 AI 在未来 5 年会如何变革 HR 职能？",
     hint:"⭐差异化——三层框架：操作层自动化/决策层AI辅助/战略层重定义工作。",
-    followups:[{q:"Which HR roles do you think will disappear first?", a:"Heavy admin roles — scheduling, basic screening, report generation. But new roles will open where AI needs governance and design.", cn:"重行政类——排期、基础筛选、报表生成。但 AI 需要治理和设计的地方会开出新角色。"}, {q:"Are you worried AI will replace HR people?", a:"No — it'll replace HR tasks. The people who learn to work with AI will have more impact, not less.", cn:"不——它替代的是 HR 的任务。学会和 AI 协作的人影响力只会更大。"}],
-    answer:`<div class="answer-header"><span class="answer-title">参考答案 · ⭐ 差异化亮点</span></div>
+    followups:[{q:"Which HR roles do you think will disappear first?", a:"Heavy admin roles — scheduling, basic screening, report generation. That frees HRBPs to do the business-facing work.", cn:"重行政类——排期、基础筛选、报表生成。这释放 HRBP 去做面向业务的工作。"}, {q:"Are you worried AI will replace HR people?", a:"No — it'll replace HR tasks. The HRBP who learns to work with AI will have more impact, not less.", cn:"不——它替代的是 HR 任务。学会和 AI 协作的 HRBP 影响力只会更大。"}],
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · HRBP 视角</span></div>
     <div class="answer-body"><p>I see AI reshaping HR in three layers, and I've touched each one myself:</p>
 <p><b>1. The basics — routine work on autopilot:</b> Resume screening, scheduling, report building, policy Q&A will largely run themselves. In my current role I've built platforms that automate intern management workflows — the "admin backbone" of HR shrinks, and the value moves to judgment work.</p>
 <p><b>2. Decision support — AI as a thinking partner:</b> AI will back calls like who to advance, who's a flight risk, what training to suggest. But the keyword is "support" — AI flags patterns; HR brings context, ethics, and human judgment. My token governance work is a small example: the model gives structure, people make the allocation calls.</p>
 <p><b>3. Strategy — rethinking the work itself:</b> AI doesn't just change how HR works; it changes which jobs exist. HR will lead workforce transformation — deciding which roles get augmented, redesigned, or retired. That's exactly what I'm on: subsidiary talent transformation in the AI era.</p>
-<p>The meta-skill is operating where tech, people, and business strategy meet. That's the spot I've been building toward — with a Big Data degree, HR across four companies, and hands-on AI governance.</p></div>
+<p>The meta-skill for an HRBP is operating where tech, people, and business meet — using AI to sharpen judgment, not replace it. That's the spot I've been building toward: HR breadth across four companies, plus hands-on experience making AI actually useful for the business.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p>我认为 AI 从三层变革 HR，我在每层都有实操经验：</p>
       <p><b>1. 操作层——常规工作自动化。</b>简历筛选、排期、报表生成、政策问答将大规模自动化。我目前在做的实习生管理平台就是在自动化 HR 工作流——HR 的"行政骨架"会缩小，价值转向基于判断的工作。</p>
       <p><b>2. 决策支持层——AI 作为思维伙伴。</b>AI 支持候选人推进、流失风险、培训推荐等决策。但关键词是"支持"——AI 发现模式，HR 负责情境、伦理和人类判断。我的 token 治理工作就是缩影：模型提供结构，人做分配决策。</p>
       <p><b>3. 战略层——重新定义工作本身。</b>AI 不只改变 HR 怎么做工作——它改变哪些工作存在。HR 将引领劳动力转型——识别哪些岗位被增强、重构或淘汰。这正是我在做的：AI 时代的子公司人才转型。</p>
-      <p>元技能：在技术、人、业务战略的交叉点运作。这正是我一直构建的——大数据学位+四家公司的 HR 经验+一手 AI 治理实践。</p>
-    </div>
-    <div class="source-tag">信息源：简历：大数据双学位+Token管理+子公司人才转型</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>HRBP 的元技能：在技术、人、业务的交叉点运作——用 AI 增强判断，而非替代。这正是我一直构建的——四家公司的 HR 广度，加上让 AI 真正为业务有用的实操经验。</p></div>`
   },
   {
     module:3, moduleLabel:"HR 专业场景", subGroup:"3.4 AI × HR 前沿", priority:"medium", isAI:true,
@@ -682,20 +659,17 @@ const QUESTIONS = [
     hint:"不是讲技术多酷——讲痛点解决+风险可控+小步验证。",
     followups:[{q:"What if the pilot fails?", a:"Then we learn why and adjust — or stop. A small failed pilot is cheap. Not trying at all is expensive.", cn:"那就学为什么失败、调整——或者停。小试点失败代价很低。完全不试才贵。"}, {q:"What's the one AI tool you'd recommend to any HR team first?", a:"An AI-assisted screening tool. It's low-risk, high-volume, and the time savings are immediate and visible.", cn:"AI辅助筛选工具。风险低、量大、省时间立竿见影。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>Three principles:</p>
+    <div class="answer-body"><p>Three principles — the same way I'd win over a business leader as their HRBP:</p>
 <p><b>1. Start with their pain, not your solution:</b> I wouldn't say "AI is amazing." I'd say "Your team spends X hours on [manual task] — I can cut that." AI is the means, not the message. Skeptical leaders don't care about tech — they care about results.</p>
 <p><b>2. Run a contained pilot:</b> Try AI on one specific, low-risk task for a set time. Agree up front what success looks like and what "stop" looks like. That makes the call feel reversible.</p>
 <p><b>3. Name the risks straight:</b> Call out data privacy, bias, over-reliance. Explain the guardrails: approved tools, humans in the loop, bias audits. In my token governance work I found that tackling risks head-on builds more trust than pretending they aren't there.</p>
-<p>You don't win skeptics by arguing. You run a small, safe experiment and let the results talk.</p></div>
+<p>You don't win skeptics by arguing. You run a small, safe experiment and let the results talk. That's the HRBP move — meet the business leader where they are, and earn the right to go further with proof.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <p>三个原则：</p>
+      <p>三个原则——和我作为 HRBP 说服业务 leader 的方式一样：</p>
       <p><b>1. 从他们的痛点出发，不是你的方案。</b>不说"AI 很厉害"，说"你的团队在[手工任务]上花X小时，我能减少。"AI 是手段不是消息。保守的领导不关心技术——关心结果。</p>
       <p><b>2. 提出受控试点。</b>在一个具体低风险任务上试 AI，限时。提前定成功指标和"叫停"标准。让决策感觉可逆。</p>
       <p><b>3. 直接回应风险。</b>承认数据隐私、偏见、过度依赖。解释缓解措施：批准工具、人工介入、偏见审计。我在 token 治理中发现，主动回应风险比假装没有更能建立信任。</p>
-      <p>你说服保守派不是靠辩论——是跑一个小而安全的实验，让结果说话。</p>
-    </div>
-    <div class="source-tag">信息源：简历：Token管理实操 · Amazon LP (Earn Trust)</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>你说服保守派不是靠辩论——是跑一个小而安全的实验，让结果说话。这是 HRBP 的做法——在业务 leader 所在的地方接住 ta，用证据赢得走更远的权利。</p></div>`
   },
 
   // ===== M4: Company Culture =====
@@ -703,21 +677,18 @@ const QUESTIONS = [
     module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"high",
     q:"Why should we hire you?",
     cn:"为什么应该录用你？",
-    hint:"三段式：HR全模块+大数据能力+AI×HR差异化。",
-    followups:[{q:"What makes you different from other HR candidates with similar experience?", a:"Most HR people don't build software. I do. That means I don't just design processes — I can actually make them run.", cn:"大多数 HR 不写代码。我写。这意味着我不只是设计流程——我能真的让它们跑起来。"}, {q:"What would your first 30 days look like?", a:"Listen to every stakeholder, map the biggest pain points, and ship one small fix by day 30 to show momentum.", cn:"听每个利益方、梳理最大痛点、30天前上线一个小修复展示动量。"}],
+    hint:"三段式：HRBP 广度 + 数据驱动 + 贴近业务。",
+    followups:[{q:"What makes you different from other HRBP candidates?", a:"Most HRBPs are strong on people but light on data. I can sit with both the business leader and the spreadsheet — and I've actually built the tools our team uses.", cn:"多数 HRBP 强于人但弱于数据。我既能陪业务 leader 也能看表格——而且我真的建过团队用的工具。"}, {q:"What would your first 30 days look like?", a:"Listen to my business leaders, map the biggest pain points, and ship one small fix by day 30 to show momentum.", cn:"听我的业务 leader、梳理最大痛点、30天前上线一个小修复展示动量。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
     <div class="answer-body"><p>Three things:</p>
-<p><b>First, rare breadth across HR:</b> HRBP at BGI Genomics (15+ roles, 87% fill, led comp talks), AI developer recruiting at ByteDance (100+ resumes a day, 90% self-sourced), and now OD and workforce planning at Tencent CSIG. I can add value across the HR map from day one.</p>
-<p><b>Second, I'm data-driven with a Big Data degree:</b> I don't go on gut feel — I pull data, find patterns, and build tools. Just at Tencent I've built a full-stack intern platform (4,000 lines), a competitive-intel platform (1,394 data points), and a token governance framework. My Big Data background means I'm as at home with code and queries as I am with people.</p>
-<p><b>Third, hands-on AI × HR:</b> I've designed token governance, built AI-integrated HR tools, and I'm working on subsidiary talent transformation. Most candidates talk about AI in HR in the abstract; I've actually built it, governed it, and thought through what it means strategically. That's the combo I bring.</p></div>
+<p><b>First, rare breadth as an HRBP:</b> HRBP at BGI Genomics (15+ roles, 87% fill, led comp talks), AI developer recruiting at ByteDance (100+ resumes a day, 90% self-sourced), and now OD and workforce planning at Tencent CSIG. I can sit with a business leader on day one and speak their language.</p>
+<p><b>Second, I'm data-driven — and I know how to turn it into action for the business:</b> I don't go on gut feel — I pull data, find patterns, and build tools. At Tencent I built an intern platform (4,000 lines) and a competitive-intel tool (1,394 data points) — but the point was making HR run smoothly so I could spend my time close to the business, not buried in admin.</p>
+<p><b>Third, I'm close to the work, not above it:</b> Most HR candidates talk about AI or strategy in the abstract; I've actually built a tool, governed a token framework, and run talent transformation — always asking "how does this help the business and the people?" That's the HRBP I'd be.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p>三点：</p>
-      <p><b>第一，罕见的 HR 经历广度。</b>华大基因 HRBP（15+岗位、87%完成率、主导薪酬谈判），字节 AI 开发招聘（日均100+简历、90%自主寻访），现在腾讯 CSIG 做 OD/人力规划。第一天就能跨 HR 全模块贡献。</p>
-      <p><b>第二，大数据学位带来的数据驱动能力。</b>不只靠直觉——拉数据、找模式、建工具。光在腾讯就做了全栈实习生管理平台（4000行）、竞对情报平台（1394条数据）、token 治理框架。大数据背景意味着我和人一样懂代码和查询。</p>
-      <p><b>第三，一手 AI×HR 经验。</b>设计过 token 治理、做过 AI 集成 HR 工具、在做子公司人才转型。多数候选人抽象地谈 AI×HR；我真的建过、治理过、思考过战略含义。这就是我带来的组合。</p>
-    </div>
-    <div class="source-tag">信息源：简历综合 · Amazon "Why hire you"</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p><b>第一，作为 HRBP 罕见的经历广度。</b>华大基因 HRBP（15+岗位、87%完成率、主导薪酬谈判），字节 AI 开发招聘（日均100+简历、90%自主寻访），现在腾讯 CSIG 做 OD/人力规划。第一天就能陪业务 leader 坐下来、说他们的语言。</p>
+      <p><b>第二，数据驱动——且知道怎么变成对业务的行动。</b>不只靠直觉——拉数据、找模式、建工具。在腾讯做了实习生平台（4000行）和竞对情报工具（1394条数据）——但重点是让 HR 跑顺，好把时间花在贴近业务上，而不是埋在行政里。</p>
+      <p><b>第三，我贴近工作，不凌驾其上。</b>多数候选人抽象地谈 AI 或战略；我真的建过工具、治理过 token 框架、跑过人才转型——且始终问"这对业务和人有什么用？"这就是我要做的 HRBP。</p></div>`
   },
   {
     module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"high",
@@ -728,38 +699,32 @@ const QUESTIONS = [
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
     <div class="answer-body"><p><b>Strengths:</b></p>
 <p>My biggest is adaptability — going from a year teaching in rural Altay to fast-paced recruiting at ByteDance in weeks. I was up to 100+ resumes a day at 90% self-sourced within three weeks. It comes from a habit of asking before assuming, and being fine with not knowing at first.</p>
-<p>My second is building things, not just doing them. At Tencent I didn't just "do" OD — I built platforms (intern management, competitive intel, token governance) that left lasting infrastructure. My Big Data degree gives me the technical base; my HR experience gives me the context.</p>
+<p>My second is building things, not just doing them. At Tencent I didn't just "do" OD — I built platforms (intern management, competitive intel, token governance) that left lasting infrastructure for the team. To me that's what an HRBP should do: make the system run smoothly so I can spend my time close to the business, not buried in admin.</p>
 <p><b>Weakness:</b></p>
 <p>My biggest weakness is hesitating when I don't have full information. My instinct is to gather more data, talk to more people, and "think it through" before I commit. That's good for quality but can slow things when speed matters more than certainty.</p>
 <p>I'm working on it: if a decision is reversible, I force myself to decide within 24 hours and adjust from there. If it's not, I give it more time but set a hard deadline. My mentor's style — handing me open problems like "explore token management" — has been exactly the stretch I needed.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p><b>优点：</b></p>
       <p>最大优点是适应力——从阿勒泰乡村支教到字节高节奏招聘，几周内转换。三周内上手到日均100+简历、90%自主寻访。这来自"先问再假设"的习惯，以及"一开始不懂也没关系"的从容。</p>
-      <p>第二优点是"建东西"而不只是"做东西"。在腾讯我不只是"做" OD——我建了平台（实习生管理、竞对情报、token 治理）创造了持久基础设施。大数据学位给技术基础，HR 经验给领域语境。</p>
+      <p>第二优点是"建东西"而不只是"做东西"。在腾讯我不只是"做" OD——我建了平台（实习生管理、竞对情报、token 治理）创造了持久基础设施。对我来说这正是 HRBP 该做的：让系统跑顺，好把时间花在贴近业务上，而不是埋在行政里。</p>
       <p><b>缺点：</b></p>
       <p>最大缺点是信息不全时犹豫。本能是再多收集数据、多问人、"想透"再定。对质量好，但在速度比确定性更重要时会拖慢。</p>
-      <p>正在改善：可逆决策强制24小时内定、根据结果调整；不可逆的给更多时间但设硬截止。MT 的风格——给"探索 token 管理"这种开放问题——正是我需要的拉伸。</p>
-    </div>
-    <div class="source-tag">信息源：Simplilearn · 简历综合</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>正在改善：可逆决策强制24小时内定、根据结果调整；不可逆的给更多时间但设硬截止。MT 的风格——给"探索 token 管理"这种开放问题——正是我需要的拉伸。</p></div>`
   },
   {
     module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"medium",
     q:"Where do you see yourself in 5 years?",
     cn:"你5年后想做什么？",
-    hint:"不说具体岗位——说能力方向：AI×HR 交叉领域的 HR 领导者。",
-    followups:[{q:"What if in 5 years AI × HR isn't as big as you expect?", a:"Then I'll adapt — that's my core strength. But I think the signal is clear: every company I've been at is already moving this direction.", cn:"那我就适应——这是我的核心优势。但我认为信号很清楚：我待过的每家公司已经在往这个方向走了。"}, {q:"Would you consider a non-HR role if the opportunity was right?", a:"Only if it sits at the people × tech intersection. I'm committed to HR — I just practice it with code.", cn:"只有它在人×技术的交叉点上才考虑。我对HR是认真的——只是我用代码来做。"}],
+    hint:"说能力方向：贴近业务的 HRBP 领导者，不绑定头衔。",
+    followups:[{q:"What if the business you support doesn't need much HR at some point?", a:"Then my job is to help it run lean — HRBP isn't about adding process, it's about what the business needs. I adapt.", cn:"那我的工作是帮它精简地跑——HRBP 不是加流程，是看业务需要什么。我适应。"}, {q:"Would you consider a COE or specialist role instead of HRBP?", a:"Maybe later. But right now I want to be close to the business — that's where I learn fastest and add the most.", cn:"也许以后。但现在我想贴近业务——那是我学得最快、贡献最大的地方。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>In five years I see myself as an HR leader where people, data, and AI meet — the person leadership turns to when they ask: "How do we restructure for AI-augmented work?" "How do we judge performance when AI is in the loop?" "How do we help people grow with the tech instead of being replaced by it?"</p>
-<p>I'm building toward that two ways: horizontally — going deeper across every HR function (I've now done recruiting, performance, workforce planning, employee relations, and OD); and vertically — growing AI × HR expertise (token governance, AI-integrated tools, talent transformation).</p>
-<p>I'm not hung up on a title — I care about the problems I get to solve. But to have the impact I want, I'll need to grow from executing strategy to shaping it. This role feels like the right next step.</p></div>
+    <div class="answer-body"><p>In five years I see myself as an HRBP leader — the person a business turns to when they say "I've got a people problem and I need help." Someone who's earned the trust to sit close to the business and shape how people and work fit together.</p>
+<p>I'm building toward that two ways: horizontally — going deeper across every HR function (I've now done recruiting, performance, workforce planning, employee relations, and OD); and by learning to use whatever helps — data, AI, tools — to serve the business better, not as an end in itself.</p>
+<p>I'm not hung up on a title — I care about the problems I get to solve. But to have the impact I want, I'll need to grow from supporting strategy to shaping it. This HRBP role feels like the right next step.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <p>5年后，我想成为在人、数据、AI 交叉点的 HR 领导者——管理层问"怎么为 AI 增强工作重构组织？""AI 参与工作流时怎么评估绩效？""怎么让人随技术成长而非被替代？"时找的那个人。</p>
-      <p>我在两个方向构建：横向——深化每个 HR 职能（招聘、绩效、人力规划、员工关系、OD 都做过了）；纵向——发展 AI×HR 专长（token 治理、AI 集成工具、人才转型）。</p>
-      <p>我不执着于头衔——我关心能解决什么问题。但要有我想的影响力，需要从执行战略成长为塑造战略。这个角色感觉是对的下一步。</p>
-    </div>
-    <div class="source-tag">信息源：Amazon 5年规划 · 简历综合</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>5年后，我想成为 HRBP 领导者——业务遇到"人的问题需要帮忙"时找的那个人。一个赢得信任、贴近业务、塑造人与工作如何契合的人。</p>
+      <p>我在两个方向构建：横向——深化每个 HR 职能（招聘、绩效、人力规划、员工关系、OD 都做过了）；以及学会用任何有用的东西——数据、AI、工具——更好地服务业务，而不是为目的本身。</p>
+      <p>我不执着于头衔——我关心能解决什么问题。但要有我想的影响力，需要从支持战略成长为塑造战略。这个 HRBP 角色感觉是对的下一步。</p></div>`
   },
   {
     module:4, moduleLabel:"大厂文化价值观", subGroup:"经典题", priority:"medium",
@@ -790,22 +755,19 @@ const QUESTIONS = [
     hint:"先听后说——理解真实原因再给方案。四步法。",
     followups:[{q:"What if their reason is purely money and you can't match it?", a:"Then I'm honest: 'I can't match that number, but here's what I can offer that they can't — growth path, team, mission.' If that's not enough, I wish them well.", cn:"那我就诚实：'那个数我匹配不了，但我能给你他们给不了的——成长路径、团队、使命。'如果还不够，我祝福他们。"}, {q:"How do you prevent good people from reaching the point of threatening to leave?", a:"Regular stay interviews — not wait for the exit. Ask 'what would make you leave?' when they're happy, not when they're halfway out.", cn:"定期做留任访谈——不是等到离职才问。在ta开心时问'什么会让你想走？'不是半只脚出去了才问。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>Four steps:</p>
+    <div class="answer-body"><p>As an HRBP, retention is one of the most important talks I have with a business leader — so I've thought hard about how to do it well. Four steps:</p>
 <p><b>1. Listen first:</b> A private 1-on-1. Open with: "I've heard you might be looking at other options. Before I say anything, I want to understand what's going on for you." Then really listen. People leave for all sorts of reasons — pay, growth, manager friction, burnout. I can't fix it until I know which.</p>
 <p><b>2. Acknowledge, don't commit:</b> "I get why that would be frustrating." Acknowledging isn't agreeing — it's showing I hear them. No promises yet.</p>
 <p><b>3. Explore what would change their mind:</b> "If we could fix [the core issue], would you want to stay?" If yes, work out specifics. Be honest about what's in my power and what isn't.</p>
 <p><b>4. Follow up fast:</b> Whatever I promise, follow up within 48 hours — even if the answer is "here's what's possible and what's not." Speed shows I take them seriously.</p>
 <p>Principle: I'd never hold someone with guilt or empty promises. If leaving is right for them, I'd support that — a forced stay that fails in three months is worse than a clean exit now.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <p>四步：</p>
+      <p>作为 HRBP，留任是我和业务 leader 之间最重要的对话之一——所以我认真想过怎么做好。四步：</p>
       <p><b>1. 先听。</b>私下1:1。开头说："听说你在考虑其他机会。我什么先不说，想先理解你的情况。"然后真的听。人离职原因很多：薪酬、成长、manager 冲突、倦怠。不知道哪个就没法解决。</p>
       <p><b>2. 确认但不承诺。</b>"我理解那会让人沮丧。"确认不是同意——是表明我听到了。还不做承诺。</p>
       <p><b>3. 探索什么能改变主意。</b>"如果我们能解决[核心问题]，你想留下吗？"如果是，探索具体方案。诚实说明我能做什么、不能做什么。</p>
       <p><b>4. 快速跟进。</b>承诺什么48小时内跟进——即使答案是"这是可能的，这不是"。速度表明我认真对待。</p>
-      <p>原则：从不用内疚或空承诺留人。如果离开对 ta 是对的，我支持——被迫留任3个月后再走比现在干净离开更糟。</p>
-    </div>
-    <div class="source-tag">信息源：interviews.chat HR 场景题 · 简历：华大基因主导薪酬谈判</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>原则：从不用内疚或空承诺留人。如果离开对 ta 是对的，我支持——被迫留任3个月后再走比现在干净离开更糟。</p></div>`
   },
   {
     module:5, moduleLabel:"情景模拟", subGroup:"假设场景", priority:"medium",
@@ -814,22 +776,19 @@ const QUESTIONS = [
     hint:"结合子公司人才转型经验——裁员是最后手段，但要做就做到干净有尊严。",
     followups:[{q:"How do you personally handle the emotional weight of layoffs?", a:"I remind myself: a clean exit with dignity and support is better than keeping someone in a role that can't deliver value — that hurts them more long-term.", cn:"我提醒自己：有尊严、有支持的干净退出，比把一个人留在无法创造价值的岗位上更好——那对ta长期伤害更大。"}, {q:"What's the biggest mistake you've seen in layoffs?", a:"Cutting by spreadsheet without understanding the work. You lose capability you didn't know was critical.", cn:"只看表格不看工作内容就裁。你会丢掉你不知道是关键的能力。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>Three principles: fairness, transparency, dignity.</p>
+    <div class="answer-body"><p>As an HRBP, layoffs are the hardest thing — but sometimes the most responsible call. Three principles guide me: fairness, transparency, dignity.</p>
 <p><b>1. Before cutting: look for alternatives:</b> A 15% cut should be the last resort. Can we save through hiring freezes, natural attrition, fewer contractors, role consolidation, or voluntary exits? In the subsidiary talent transformation work I'm doing, I've seen the question isn't always "who do we cut?" but "how do we reshape roles so we need fewer?" If AI can augment some roles, we might shrink through attrition instead of layoffs.</p>
 <p><b>2. If cuts are needed: clear, consistent criteria:</b> Objective and defensible — performance records, role redundancy, skill fit. Applied the same way across teams, with the decision process documented. The worst thing in a layoff is looking arbitrary.</p>
 <p><b>3. During: lead with dignity:</b> Conversations are face to face, not by email. Managers come with talking points. Severance, outplacement, references ready before the talk. Be honest about the business reason.</p>
 <p><b>4. After: care for the survivors:</b> Team meetings to name the difficulty, explain the context, and address fears of more cuts. Survivor guilt is real — ignore it and you'll see disengagement and more leaving.</p>
 <p>My philosophy, shaped by this work: if a role can't tie to real business outcomes, keeping it is worse than cutting it — for the person and the company alike.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <p>三个原则：公平、透明、尊严。</p>
+      <p>作为 HRBP，裁员是最难的事——但有时是最负责任的决定。三个原则指导我：公平、透明、尊严。</p>
       <p><b>1. 裁之前：探索替代方案。</b>15%裁减应是最后手段。能否通过冻结招聘、自然流失、减少外包、岗位合并、自愿离职来实现？在子公司人才转型工作中，我发现有时问题不是"裁谁"——而是"怎么转型岗位让人更少？"如果 AI 能增强某些角色，也许通过自然流失而非裁员。</p>
       <p><b>2. 必须裁时：清晰一致的标准。</b>客观可辩护——绩效记录、岗位冗余、技能相关性。跨团队一致执行，决策过程留档。裁员最糟的是被认为随意。</p>
       <p><b>3. 执行中：优先尊严。</b>面对面谈，不发邮件。manager 有谈话要点。离职补偿、再就业支持、推荐信在谈话前就准备好。诚实说明业务原因。</p>
       <p><b>4. 之后：关怀留下的人。</b>开会承认困难、解释背景、回应进一步裁减的担忧。幸存者内疚是真实的——忽视它会导致倦怠和更多流失。</p>
-      <p>我的理念，受当前工作影响：如果一个岗位挂不到真实业务绩效上，留着比裁掉更糟——对个人和组织都是。</p>
-    </div>
-    <div class="source-tag">信息源：简历：子公司人才转型 · interviews.chat HR Director</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>我的理念，受当前工作影响：如果一个岗位挂不到真实业务绩效上，留着比裁掉更糟——对个人和组织都是。</p></div>`
   },
   {
     module:5, moduleLabel:"情景模拟", subGroup:"假设场景", priority:"low",
@@ -838,22 +797,19 @@ const QUESTIONS = [
     hint:"先确认是系统性偏见还是个案——用数据说话。",
     followups:[{q:"What if leadership doesn't want to hear about bias?", a:"I frame it as a business risk — 'we might be losing talent we can't afford to lose.' That gets attention.", cn:"我把它框成业务风险——'我们可能在流失我们丢不起的人才。'这能引起注意。"}, {q:"How do you measure whether the fix actually worked?", a:"Track the same metrics across 2-3 cycles after the intervention. If the pattern doesn't shift, the fix was wrong — try again.", cn:"干预后跟踪2-3个周期同样的指标。如果模式不变，说明方案不对——再来。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>Data first, system-level:</p>
+    <div class="answer-body"><p>From an HRBP seat, spotting bias early is part of the job — so I go data-first, system-level:</p>
 <p><b>1. Verify with data:</b> Pull promotion data across 2+ cycles and look at it by demographic. Find statistically real patterns, not one-off cases.</p>
 <p><b>2. Find the root cause:</b> Trace the pipeline: nomination → sponsorship → evaluation → calibration. Where does bias slip in? Different roots need different fixes.</p>
 <p><b>3. Targeted fixes:</b> Nomination problem → widen the criteria. Calibration problem → blind evaluation or a diverse panel. Evaluation problem → standard rubrics plus cross-line review (which I've done at Tencent).</p>
 <p><b>4. Track and iterate:</b> Watch it by demographic in later cycles. Report progress to leadership. Bias isn't a one-time fix — it's ongoing monitoring.</p>
 <p>Politically: I'd frame it as "I noticed a pattern, let's improve the process" — not "you're biased." People respond to "let's improve" far better than to an accusation.</p></div>
     <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <p>数据先行、系统层面：</p>
+      <p>从 HRBP 的位置，早识别偏见是工作的一部分——所以我数据先行、系统层面：</p>
       <p><b>1. 用数据验证。</b>拉2+周期晋升数据，按人口统计维度分析。找统计显著模式，不是个案。</p>
       <p><b>2. 理解根因。</b>追溯管线：提名→赞助→评估→校准。偏见从哪进入？不同根因需要不同解法。</p>
       <p><b>3. 提出针对性干预。</b>提名问题→拓宽标准。校准问题→盲评或多元评审。评估问题→标准化评分+跨条线复核（我在腾讯实施过）。</p>
       <p><b>4. 追踪迭代。</b>后续周期按维度监控。向管理层汇报进展。偏见不是一次性修复——是持续监控。</p>
-      <p>政治上：定位为"我发现了一个模式，让我们改进"——不是"你有偏见"。人对"让我们改进"比对指控反应好得多。</p>
-    </div>
-    <div class="source-tag">信息源：简历：腾讯跨条线校准 · Resumly 2026 DEI</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>政治上：定位为"我发现了一个模式，让我们改进"——不是"你有偏见"。人对"让我们改进"比对指控反应好得多。</p></div>`
   },
 
   // ===== M6: Closing =====
@@ -862,46 +818,40 @@ const QUESTIONS = [
     q:"Do you have any questions for us?",
     cn:"你有什么问题想问我们吗？",
     hint:"至少准备3个高质量反问。展示深度思考。",
-    followups:[{q:"How do you choose which questions to ask?", a:"I read the room — if the interviewer is technical, I ask about AI × HR. If they're business, I ask about challenges. Match the question to the person.", cn:"我读房间——如果面试官偏技术，我问AI×HR。如果偏业务，我问挑战。问题要匹配人。"}, {q:"What if you only have time for one question?", a:"I ask: 'What does success look like in this role in the first 6 months?' It shows I'm thinking about delivery.", cn:"我问：'这个岗位前6个月成功是什么样？'表明我在想怎么交付。"}],
-    answer:`<div class="answer-header"><span class="answer-title">参考答案 · 准备 3-5 个反问</span></div>
-    <div class="answer-body"><p>Yes, a few:</p>
-<p><b>1. What does success look like in this role in the first 6 months?</b> — Shows I'm thinking about delivery, not just landing the job.</p>
-<p><b>2. What's the biggest HR challenge the company is facing right now?</b> — Shows strategic thinking; their answer tells me what I'd walk into.</p>
-<p><b>3. How does the company approach AI in HR?</b> — My differentiator. Signals AI × HR expertise and opens the door to my token governance and platform work.</p>
-<p><b>4. How is the HR team structured, and how does it partner with the business?</b> — Shows I care how HR actually runs.</p>
-<p><b>5. What opportunities are there for professional development?</b> — Standard but matters.</p>
-<p>I'd pick 2-3 based on how the interview's going. The goal: ask things that show I've been listening and thinking, not reading from a list.</p></div>
-    <div class="cn-translation"><span class="cn-label">中文对照</span>
-      <p>是的，几个问题：</p>
-      <p><b>1. 这个岗位前6个月的成功标准是什么？</b>——表明我在想交付，不只是拿到 offer。</p>
-      <p><b>2. 公司目前最大的 HR 挑战是什么？</b>——展示战略思考。答案告诉我即将面对什么。</p>
-      <p><b>3. 公司如何推进 AI 在 HR 中的应用？</b>——我的差异化问题。信号 AI×HR 专长，打开讨论 token 治理和平台建设经验的大门。</p>
-      <p><b>4. HR 团队怎么架构，怎么和业务协作？</b>——表明我关心 HR 怎么运作。</p>
-      <p><b>5. 有什么职业发展机会？</b>——常规但重要。</p>
-      <p>我会根据面试流程选2-3个。目标：问的问题展示我在听、在想，不是在走清单。</p>
-    </div>
-    <div class="source-tag">信息源：UK Interview Guide · Amazon closing</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+    followups:[{q:"How do you choose which questions to ask?", a:"I read the room — if they're a business leader, I ask about their people-challenges. If they're HR, I ask about the model. Match the question to the person.", cn:"我读房间——如果是业务 leader，我问 ta 的人-related 挑战。如果是 HR，我问模型。问题要匹配人。"}, {q:"What if you only have time for one question?", a:"I ask: 'What's the biggest people-challenge your team faces right now?' It shows I'm thinking like a business partner.", cn:"我问：'你的团队现在最大的人-related 挑战是什么？'表明我在像业务伙伴一样思考。"}],
+    answer:`<div class="answer-header"><span class="answer-title">参考答案 · 准备 3-5 个反问（HRBP 视角）</span></div>
+        <div class="answer-body"><p>Yes, a few — from an HRBP angle:</p>
+<p><b>1. Which business line (or lines) would this HRBP role partner with?</b> — Shows I care about sitting close to the business, not running programs from the back office.</p>
+<p><b>2. What's the biggest people-challenge your business leaders are facing right now?</b> — That's the work I'd walk into; their answer tells me whether we're a fit.</p>
+<p><b>3. How do HRBP, COE, and SSC divide the work here?</b> — Shows I understand the three-pillar model and where an HRBP adds value.</p>
+<p><b>4. How does this role measure its impact on the business?</b> — I'm delivery-minded; I want to know what "good" looks like, not just activity.</p>
+<p><b>5. How does the team support an HRBP's growth?</b> — Standard but it matters to me.</p>
+<p>I'd pick 2-3 based on who's across the table. The goal: ask things that show I've been listening and thinking like a business partner, not reading from a list.</p></div>
+        <div class="cn-translation"><span class="cn-label">中文对照</span>
+      <p>是的，几个——从 HRBP 视角：</p>
+      <p><b>1. 这个 HRBP 岗对接哪条（或哪些）业务线？</b>——表明我在意贴近业务，而不是在后台跑项目。</p>
+      <p><b>2. 你的业务 leader 目前最大的人-related 挑战是什么？</b>——那正是我将面对的工作；答案告诉我我们匹不匹配。</p>
+      <p><b>3. 这里 HRBP、COE、SSC 怎么分工？</b>——表明我懂三支柱模型，知道 HRBP 在哪增值。</p>
+      <p><b>4. 这个岗位怎么衡量对业务的影响？</b>——我有交付导向；我想知道"好"长什么样，而不只是做了多少事。</p>
+      <p><b>5. 团队怎么支持 HRBP 成长？</b>——常规但对我重要。</p>
+      <p>我会根据对面是谁选2-3个。目标：问出像业务伙伴一样在听、在想的问题，而不是走清单。</p></div>`
   },
   {
     module:6, moduleLabel:"收尾与反问", subGroup:"收尾", priority:"medium",
     q:"Is there anything else you'd like to share?",
     cn:"你还有什么想补充的吗？",
     hint:"最后加分机会——一句话收束核心价值主张。",
-    followups:[{q:"How do you make this closing feel natural, not rehearsed?", a:"I connect it to something from the conversation — 'when you mentioned X earlier, it made me think...' That shows I was listening.", cn:"我把它和对话中的某个点连起来——'你刚才提到X时让我想到……'这表示我在听。"}, {q:"What if you're completely drained by the end of the interview?", a:"Then I keep it to one sentence: 'I'd love to bring my AI × HR experience to a team like yours. Thank you for the conversation.' Short and honest.", cn:"那就一句话：'我很想把我AI×HR的经验带到你们这样的团队。谢谢今天的时间。'短而真诚。"}],
+    followups:[{q:"How do you make this closing feel natural, not rehearsed?", a:"I connect it to something from the conversation — 'when you mentioned X earlier, it made me think...' That shows I was listening.", cn:"我把它和对话中的某个点连起来——'你刚才提到X时让我想到……'这表示我在听。"}, {q:"What if you're completely drained by the end of the interview?", a:"Then I keep it to one sentence: 'I'd love to be the HRBP who sits close to your business. Thank you for the conversation.' Short and honest.", cn:"那就一句话：'我很想做那个贴近你们业务的 HRBP。谢谢今天的时间。'短而真诚。"}],
     answer:`<div class="answer-header"><span class="answer-title">参考答案</span></div>
-    <div class="answer-body"><p>Yes, one thing:</p>
-<p>I've been deliberate about building a career that mixes HR breadth with technical depth. The breadth comes from HRBP work at BGI Genomics, AI developer recruiting at ByteDance, and now OD and workforce planning at Tencent. The depth comes from my Big Data degree and my focus on AI × HR — I've gone from asking "how does HR use AI?" to building platforms, designing governance, and working on talent transformation.</p>
-<p>I'm not looking for just any HR job. I'm looking for a role where I can bring this combo to a team thinking about the future of work. This conversation has made me think [Company Name] could be that place.</p>
+        <div class="answer-body"><p>Yes, one thing:</p>
+<p>I've been deliberate about building a career that mixes HR breadth with business closeness. The breadth comes from HRBP work at BGI Genomics, AI developer recruiting at ByteDance, and now OD and workforce planning at Tencent. The closeness comes from sitting with business leaders — understanding what their teams actually need, not just what the HR playbook says.</p>
+<p>I'm not looking for just any HR job. I'm looking for an HRBP role where I can sit close to the business, earn my leaders' trust, and use whatever tools help — including AI — to make HR genuinely serve the work. This conversation has made me think [Company Name] could be that place.</p>
 <p>Thank you for your time — I've really enjoyed this.</p></div>
-    <div class="cn-translation"><span class="cn-label">中文对照</span>
+        <div class="cn-translation"><span class="cn-label">中文对照</span>
       <p>是的，一点：</p>
-      <p>我一直有意识地构建一个结合 HR 广度和技术深度的职业。广度来自华大基因 HRBP、字节 AI 开发招聘、现在腾讯 OD/人力规划。深度来自大数据学位和当前 AI×HR 专注——我已经从"HR 怎么用 AI？"走到了建平台、设计治理、做人才转型。</p>
-      <p>我不是在找任何一个 HR 岗位。我在找一个能把这种组合带到思考未来工作的团队的角色。今天的对话让我更确信[公司名]可能是那个地方。</p>
-      <p>谢谢你们的时间。我非常享受这次对话。</p>
-    </div>
-    <div class="source-tag">信息源：Amazon closing · 简历综合</div>
-    <div class="flip-hint">点击卡片返回题目 ↑</div>`
+      <p>我一直有意识地构建一种结合 HR 广度与业务亲近感的职业。广度来自华大基因 HRBP、字节 AI 开发招聘、现在腾讯 OD/人力规划。亲近感来自我陪业务 leader 坐下来——理解团队真正要什么，而不只是 HR 手册说什么。</p>
+      <p>我不是在找任何一个 HR 岗位。我在找一个能贴近业务、赢得 leader 信任、并用任何有用的工具（包括 AI）让 HR 真正服务业务的 HRBP 角色。今天的对话让我更确信[公司名]可能是那个地方。</p>
+      <p>谢谢你们的时间。我非常享受这次对话。</p></div>`
   },
 
   // ===== M7: Personal life =====
@@ -1079,6 +1029,7 @@ document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prevCard();else i
 document.getElementById('cardBack').addEventListener('click',e=>{
   const btn=e.target.closest('.speak-btn');
   if(!btn) return;
+  e.stopPropagation();   // 阻止冒泡到卡片，避免点击朗读按钮时翻页
   if(btn.hasAttribute('data-full')){
     const body=document.querySelector('#cardBack .answer-body');
     speak(body?body.innerText:'', btn);
